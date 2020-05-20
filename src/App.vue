@@ -35,7 +35,7 @@
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
-            {{ currentUser.email }}
+            {{ currentUser.team_name }}
           </router-link>
         </li>
         <li class="nav-item">
