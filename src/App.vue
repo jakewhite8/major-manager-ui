@@ -60,14 +60,14 @@ export default {
     },
     showAdminPage() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes(2);
+        return this.currentUser.roles.includes(3);
       }
 
       return false;
     },
     showModeratorPage() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes(1);
+        return this.currentUser.roles.includes(2);
       }
 
       return false;
