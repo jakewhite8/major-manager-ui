@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8081/api/v1/';
 
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods":
-['getPublicContent', 'getUserPage', 'getModeratorPage', 'getAdminPage'] }] */
+['getActiveTournaments'] }] */
 class TournamentService {
   getActiveTournaments() {
     return axios.get(`${API_URL}active_tournaments`, { headers: authHeader() });
