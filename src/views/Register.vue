@@ -9,18 +9,18 @@
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="team_name">Team Name</label>
             <input
-              v-model="user.username"
+              v-model="user.team_name"
               v-validate="'required|min:3|max:20'"
               type="text"
               class="form-control"
-              name="username"
+              name="team_name"
             />
             <div
-              v-if="submitted && errors.has('username')"
+              v-if="submitted && errors.has('team_name')"
               class="alert-danger"
-            >{{errors.first('username')}}</div>
+            >{{errors.first('team_name')}}</div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
