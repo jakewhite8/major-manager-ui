@@ -6,7 +6,7 @@
       </h3>
     </header>
     <p>
-      <router-link to="/join-tournament" class="nav-link">
+      <router-link to="/active-tournaments" class="nav-link">
         <font-awesome-icon icon="user-plus" />Join Tournament
       </router-link>
     </p>

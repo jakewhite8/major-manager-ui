@@ -8,7 +8,7 @@ import AdminPage from '../views/AdminPage.vue';
 import ModeratorPage from '../views/ModeratorPage.vue';
 import UserPage from '../views/UserPage.vue';
 import Logout from '../views/Logout.vue';
-import JoinTournament from '../views/JoinTournament.vue';
+import ActiveTournaments from '../views/ActiveTournaments.vue';
 import TournamentPlayerSeclection from '../views/TournamentPlayerSeclection.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
@@ -54,8 +54,8 @@ const routes = [
     component: Logout,
   },
   {
-    path: '/join-tournament',
-    component: JoinTournament,
+    path: '/active-tournaments',
+    component: ActiveTournaments,
   },
   {
     path: '/tournament-player-selection',
