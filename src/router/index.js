@@ -10,6 +10,7 @@ import UserPage from '../views/UserPage.vue';
 import Logout from '../views/Logout.vue';
 import JoinTournament from '../views/JoinTournament.vue';
 import TournamentPlayerSeclection from '../views/TournamentPlayerSeclection.vue';
+import PageNotFound from '../views/PageNotFound.vue';
 
 
 Vue.use(VueRouter);
@@ -60,7 +61,10 @@ const routes = [
     path: '/tournament-player-selection',
     component: TournamentPlayerSeclection,
   },
-
+  {
+    path: '*',
+    component: PageNotFound,
+  },
 ];
 
 const router = new VueRouter({
