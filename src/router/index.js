@@ -8,6 +8,8 @@ import AdminPage from '../views/AdminPage.vue';
 import ModeratorPage from '../views/ModeratorPage.vue';
 import UserPage from '../views/UserPage.vue';
 import Logout from '../views/Logout.vue';
+import JoinTournament from '../views/JoinTournament.vue';
+import TournamentPlayerSeclection from '../views/TournamentPlayerSeclection.vue';
 
 
 Vue.use(VueRouter);
@@ -49,6 +51,14 @@ const routes = [
   {
     path: '/logout',
     component: Logout,
+  },
+  {
+    path: '/join-tournament',
+    component: JoinTournament,
+  },
+  {
+    path: '/tournament-player-selection',
+    component: TournamentPlayerSeclection,
   },
 
 ];

@@ -2,17 +2,18 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.email}}</strong> Profile
+        Player Selection
       </h3>
     </header>
     <p>
-      <router-link to="/join-tournament" class="nav-link">
-        <font-awesome-icon icon="user-plus" />Join Tournament
+      <router-link to="/tournament-player-selection" class="nav-link">
+        2020 PGA Championship
       </router-link>
     </p>
     <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
+      <router-link to="/tournament-player-selection" class="nav-link">
+        2020 British Open
+      </router-link>
     </p>
     <p>
       <strong>Email:</strong>
