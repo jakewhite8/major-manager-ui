@@ -3,39 +3,43 @@
     <header class="jumbotron">
       <h3>Active Tournaments</h3>
     </header>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm table-bordered table-hover">
-        <thead class="thead-dark">
-          <tr>
-            <th>Tournament</th>
-            <th>Start Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(tournament) in tournaments" :key="tournament.id">
-            <td>{{ tournament.name }}</td>
-            <td>{{ new Date(tournament.start_date).toString() }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <ClickableRowTable
+      :rowData=tournaments
+      :headers=headers
+      :columns=columns
+      :onClickFunction=onClickFunction
+    />
   </div>
 </template>
 
 <script>
+import ClickableRowTable from '../components/ClickableRowTable.vue';
 import TournamentService from '../services/tournament.service';
 
 export default {
   name: 'ActiveTournaments',
   data() {
     return {
-      tournaments: '',
+      tournaments: null,
+      headers: null,
+      columns: null,
     };
+  },
+  components: {
+    ClickableRowTable,
+  },
+  methods: {
+    onClickFunction(id) {
+      console.log(`id: ${id}`);
+      this.$router.push('/home');
+    },
   },
   mounted() {
     TournamentService.getActiveTournaments().then(
       (response) => {
         this.tournaments = response.data;
+        this.headers = ['Tournaments', 'Start Date'];
+        this.columns = ['name', 'start_date'];
       },
       (error) => {
         this.tournaments = (error.response && error.response.data)
