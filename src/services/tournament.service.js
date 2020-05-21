@@ -10,6 +10,9 @@ class TournamentService {
   getActiveTournaments() {
     return axios.get(`${API_URL}active_tournaments`, { headers: authHeader() });
   }
+  getTournamentAndPlayerData(id) {
+    return axios.get(`${API_URL}tournament_player_data/${id}`, { headers: authHeader() });
+  }
 }
 
 export default new TournamentService();

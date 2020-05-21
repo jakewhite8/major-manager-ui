@@ -2,42 +2,40 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        Player Selection
+        {{ tournament.name }} Player Selection
       </h3>
     </header>
-    <p>
-      <router-link to="/tournament-player-selection" class="nav-link">
-        2020 PGA Championship
-      </router-link>
-    </p>
-    <p>
-      <router-link to="/tournament-player-selection" class="nav-link">
-        2020 British Open
-      </router-link>
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
   </div>
 </template>
 
 <script>
+
+import TournamentService from '../services/tournament.service';
+
 export default {
-  name: 'Profile',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    },
-  },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
+  name: 'TournamentPlayerSelection',
+  data() {
+    return {
+      tournament: {
+        name: '',
+        id: null
+      },
+      players: []
     }
   },
+  mounted() {
+    this.tournament.id = this.$route.params.id
+    TournamentService.getTournamentAndPlayerData(this.tournament.id).then(
+      (response) => {
+        this.tournament.name = response.data.tournamentName;
+        this.players = response.data.playerData
+      },
+      (error) => {
+        this.tournament.name = (error.response && error.response.data)
+          || error.message
+          || error.toString();
+      }
+    )
+  }
 };
 </script>

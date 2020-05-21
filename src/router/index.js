@@ -58,7 +58,7 @@ const routes = [
     component: ActiveTournaments,
   },
   {
-    path: '/tournament-player-selection',
+    path: '/tournament/:id/player-selection',
     component: TournamentPlayerSeclection,
   },
   {

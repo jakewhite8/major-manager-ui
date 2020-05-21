@@ -30,8 +30,7 @@ export default {
   },
   methods: {
     onClickFunction(id) {
-      console.log(`id: ${id}`);
-      this.$router.push('/home');
+      this.$router.push(`/tournament/${id}/player-selection`);
     },
   },
   mounted() {
