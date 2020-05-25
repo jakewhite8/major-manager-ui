@@ -11,6 +11,11 @@
       </router-link>
     </p>
     <p>
+      <router-link to="/active-teams" class="nav-link">
+        <font-awesome-icon icon="user-plus" />Active Teams
+      </router-link>
+    </p>
+    <p>
       <strong>Id:</strong>
       {{currentUser.id}}
     </p>
