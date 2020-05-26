@@ -12,7 +12,7 @@
             <label for="team_name">Team Name</label>
             <input
               v-model="user.team_name"
-              v-validate="'required|min:3|max:20'"
+              v-validate="'required|min:3|max:40'"
               type="text"
               class="form-control"
               name="team_name"

@@ -24,8 +24,9 @@
                   type="radio"
                   :id="player.id"
                   :value="player.id"
-                  :name="player.tier"
-                  v-model="submitObject[`tier-${player.tier}`]">
+                  :name="'tier-' + player.tier"
+                  v-model="submitPlayerDataObject[`tier-${player.tier}`]"
+                  v-validate="'required'">
               </td>
               <td class="col-11">
                 <label :for="player.id">
@@ -43,7 +44,12 @@
         </button>
       </div>
       <div class="form-group">
-        <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+        <div
+          v-if="submitted && errors.items.length > 1 || message"
+          class="alert alert-danger"
+          role="alert">
+          {{ message || 'Select one Player from each section'}}
+        </div>
       </div>
     </form>
   </div>
@@ -64,27 +70,34 @@ export default {
       players: [],
       message: '',
       loading: false,
-      submitObject: {},
+      submitPlayerDataObject: {},
+      submitted: false,
     };
   },
   methods: {
     handlePlayerSubmit() {
       this.loading = true;
+      this.submitted = true;
       // Validate all fields
-
-      TournamentService
-        .setUsersTournamentPlayers(this.submitObject, this.tournament.id).then(
-          () => {
-            // Model toaster saying success
-            // Route to team page?
-            this.$router.push('/profile');
-          }, (err) => {
-            this.message = (err.response && err.response.data)
-            || err.message
-            || err.toString();
-          },
-        );
-      this.loading = false;
+      this.$validator.validate().then((isValid) => {
+        if (isValid) {
+          TournamentService
+            .setTeam(this.submitPlayerDataObject, this.tournament.id).then(
+              (res) => {
+                if (res && res.data && res.data.message && res.data.message.indexOf('Error') > -1) {
+                  this.message = res.data.message;
+                  return;
+                }
+                this.$router.push('/active-teams');
+              }, (err) => {
+                this.message = (err.response && err.response.data)
+                || err.message
+                || err.toString();
+              },
+            );
+        }
+        this.loading = false;
+      });
     },
   },
   mounted() {
@@ -93,9 +106,9 @@ export default {
       (response) => {
         this.tournament.name = response.data.tournamentName;
         this.players = response.data.playerData;
-        this.submitObject = {};
+        this.submitPlayerDataObject = {};
         for (let i = 0; i < this.players.length; i += 1) {
-          this.submitObject[`tier-${i + 1}`] = null;
+          this.submitPlayerDataObject[`tier-${i + 1}`] = null;
         }
       },
       (error) => {
