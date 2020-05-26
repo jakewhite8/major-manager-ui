@@ -9,7 +9,7 @@ import ModeratorPage from '../views/ModeratorPage.vue';
 import UserPage from '../views/UserPage.vue';
 import Logout from '../views/Logout.vue';
 import ActiveTournaments from '../views/ActiveTournaments.vue';
-import TournamentPlayerSeclection from '../views/TournamentPlayerSeclection.vue';
+import PlayerSelectionPage from '../views/PlayerSelectionPage.vue';
 import UserActiveTeams from '../views/UserActiveTeams.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
@@ -60,7 +60,7 @@ const routes = [
   },
   {
     path: '/tournament/:id/player-selection',
-    component: TournamentPlayerSeclection,
+    component: PlayerSelectionPage,
   },
   {
     path: '/active-teams',

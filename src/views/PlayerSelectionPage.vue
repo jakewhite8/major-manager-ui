@@ -60,7 +60,7 @@
 import TournamentService from '../services/tournament.service';
 
 export default {
-  name: 'TournamentPlayerSelection',
+  name: 'PlayerSelectionPage',
   data() {
     return {
       tournament: {
