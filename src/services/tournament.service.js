@@ -9,11 +9,11 @@ const API_URL = 'http://localhost:8081/api/v1';
 'setUsersTournamentPlayers', 'getActiveTournamentsForAUser'] }] */
 class TournamentService {
   getActiveTournaments() {
-    return axios.get(`${API_URL}/active_tournaments`, { headers: authHeader() });
+    return axios.get(`${API_URL}/active_tournaments`);
   }
 
   getTournamentAndPlayerData(id) {
-    return axios.get(`${API_URL}/tournament_player_data/${id}`, { headers: authHeader() });
+    return axios.get(`${API_URL}/tournament_player_data/${id}`);
   }
 
   setUsersTournamentPlayers(selectedPlayers, tournamentId) {
