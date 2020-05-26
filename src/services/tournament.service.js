@@ -16,15 +16,15 @@ class TournamentService {
     return axios.get(`${API_URL}/tournament_player_data/${id}`, { headers: authHeader() });
   }
 
-  setUsersTournamentPlayers(selectedPlayers, userId, tournamentId) {
+  setUsersTournamentPlayers(selectedPlayers, tournamentId) {
     return axios.post(`${API_URL}/set_team`, {
-      selectedPlayers, userId, tournamentId,
+      selectedPlayers, tournamentId,
     }, { headers: authHeader() });
   }
 
   // Returns tournaments that a user is signed up for that have not occured yet
-  getActiveTournamentsForAUser(id) {
-    return axios.get(`${API_URL}/active_tournament_user_data/${id}`, { headers: authHeader() });
+  getActiveTournamentsForAUser() {
+    return axios.get(`${API_URL}/active_tournament_user_data`, { headers: authHeader() });
   }
 }
 

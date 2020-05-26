@@ -52,7 +52,7 @@ export default {
   mounted() {
     this.user = this.$store.state.auth.user;
     this.loading = true;
-    TournamentService.getActiveTournamentsForAUser(this.user.id).then(
+    TournamentService.getActiveTournamentsForAUser().then(
       (response) => {
         this.tournaments = response.data;
         this.headers = ['Tournaments', 'Start Date'];

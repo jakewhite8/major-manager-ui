@@ -65,7 +65,6 @@ export default {
       message: '',
       loading: false,
       submitObject: {},
-      userId: '',
     };
   },
   methods: {
@@ -74,7 +73,7 @@ export default {
       // Validate all fields
 
       TournamentService
-        .setUsersTournamentPlayers(this.submitObject, this.userId, this.tournament.id).then(
+        .setUsersTournamentPlayers(this.submitObject, this.tournament.id).then(
           () => {
             // Model toaster saying success
             // Route to team page?
@@ -89,7 +88,6 @@ export default {
     },
   },
   mounted() {
-    this.userId = this.$store.state.auth.user.id;
     this.tournament.id = this.$route.params.id;
     TournamentService.getTournamentAndPlayerData(this.tournament.id).then(
       (response) => {
