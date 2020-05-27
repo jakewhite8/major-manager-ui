@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8081/api/v1';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods":
 ['getActiveTournaments', 'getTournamentAndPlayerData',
-'setTeam', 'getActiveTournamentsForAUser'] }] */
+'setTeam', 'getActiveTournamentsForAUser', 'getPastTournamentsForAUser'] }] */
 class TournamentService {
   getActiveTournaments() {
     return axios.get(`${API_URL}/active_tournaments`);
@@ -28,6 +28,10 @@ class TournamentService {
   // Returns Tournaments that a User is signed up for that have not occured yet
   getActiveTournamentsForAUser() {
     return axios.get(`${API_URL}/active_tournament_user_data`, { headers: authHeader() });
+  }
+
+  getPastTournamentsForAUser() {
+    return axios.get(`${API_URL}/past_tournament_user_data`, { headers: authHeader() });
   }
 }
 

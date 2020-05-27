@@ -11,6 +11,7 @@ import Logout from '../views/Logout.vue';
 import ActiveTournaments from '../views/ActiveTournaments.vue';
 import PlayerSelectionPage from '../views/PlayerSelectionPage.vue';
 import UserActiveTeams from '../views/UserActiveTeams.vue';
+import UserPastTeams from '../views/UserPastTeams.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
 
@@ -65,6 +66,10 @@ const routes = [
   {
     path: '/active-teams',
     component: UserActiveTeams,
+  },
+  {
+    path: '/past-teams',
+    component: UserPastTeams,
   },
   {
     path: '*',

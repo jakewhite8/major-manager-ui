@@ -16,6 +16,11 @@
       </router-link>
     </p>
     <p>
+      <router-link to="/past-teams" class="nav-link">
+        <font-awesome-icon icon="user-plus" />Past Results
+      </router-link>
+    </p>
+    <p>
       <strong>Id:</strong>
       {{currentUser.id}}
     </p>
