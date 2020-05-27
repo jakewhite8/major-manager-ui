@@ -12,9 +12,10 @@ class TournamentService {
     return axios.get(`${API_URL}/active_tournaments`);
   }
 
-  // Get information regarding a Tournament and the Players in it
+  // Get information regarding a Tournament and the Players in
+  // it. A Users team if they have one will be returned here as well
   getTournamentAndPlayerData(id) {
-    return axios.get(`${API_URL}/tournament_player_data/${id}`);
+    return axios.get(`${API_URL}/tournament_player_data/${id}`, { headers: authHeader() });
   }
 
   // A Users team for a particular Tournament is created or updated
