@@ -1,7 +1,8 @@
 import axios from 'axios';
 import authHeader from './auth-header';
+import server from './serverURL';
 
-const API_URL = 'http://localhost:8081/api/test/';
+const API_URL = `${server.URL}api/test/`;
 
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods":

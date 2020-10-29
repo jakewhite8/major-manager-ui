@@ -1,8 +1,9 @@
 // functions used to help http requests and responses
 
 import axios from 'axios';
+import server from './serverURL';
 
-const API_URL = 'http://localhost:8081/api/auth';
+const API_URL = `${server.URL}/api/auth`;
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ['login', 'logout', 'register'] }] */
 class AuthService {
