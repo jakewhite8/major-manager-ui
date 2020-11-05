@@ -1,3 +1,3 @@
 module.exports = {
-  URL: 'http://localhost:8081/',
+  URL: 'https://major-manager-server.herokuapp.com/',
 };
