@@ -1,7 +1,8 @@
 import axios from 'axios';
 import authHeader from './auth-header';
+import server from './serverURL';
 
-const API_URL = 'http://localhost:8081/api/v1';
+const API_URL = `${server.URL}api/v1`;
 
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods":
@@ -16,6 +17,7 @@ class TournamentService {
   // Get information regarding a Tournament and the Players in
   // it. A Users team if they have one will be returned here as well.
   // Used to Edit and Create a Team
+  // Takes the Tournament id as an argument
   getTournamentAndPlayerData(id) {
     return axios.get(`${API_URL}/tournament_player_data/${id}`, { headers: authHeader() });
   }

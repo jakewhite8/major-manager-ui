@@ -3,7 +3,7 @@
 import axios from 'axios';
 import server from './serverURL';
 
-const API_URL = `${server.URL}/api/auth`;
+const API_URL = `${server.URL}api/auth`;
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ['login', 'logout', 'register'] }] */
 class AuthService {
