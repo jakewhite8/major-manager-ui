@@ -14,7 +14,8 @@
         <tr v-for="data in rowData"
           :key="data.id"
           v-on:click="onClickFunction(data.id)"
-          class="clickableRow">
+          class="clickableRow"
+          v-bind:class="[(data.selected) ? 'selectedBackground' : '']">
             <td v-for="column in columns" :key="column">
               <span v-if="column.indexOf('date') > -1">
                 {{ new Date(data[column]).toString() }}
@@ -46,5 +47,8 @@ module.exports = {
 <style>
 tr.clickableRow:hover {
   cursor: pointer;
+}
+tr.selectedBackground {
+  background-color: rgb(204, 204, 255);
 }
 </style>
