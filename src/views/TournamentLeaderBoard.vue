@@ -111,7 +111,7 @@ export default {
         this.tournament.name = response.data.tournamentName.name;
         this.leaderboard = response.data.leaderboard;
         this.scores = response.data.scoresByTeam;
-        if (this.user && this.scores && this.scores[this.user.team_name]) {
+        if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
           this.currentUserTeam = this.leaderboard[this.user.team_name];
         }
         this.headers = ['Players', 'Score'];
