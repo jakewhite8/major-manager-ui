@@ -17,7 +17,7 @@
     </p>
     <p>
       <router-link to="/past-teams" class="nav-link">
-        <font-awesome-icon icon="user-plus" />Past Results
+        <font-awesome-icon icon="user-plus" />Current and Past Results
       </router-link>
     </p>
     <p>
