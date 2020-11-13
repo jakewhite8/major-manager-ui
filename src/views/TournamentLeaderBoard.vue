@@ -30,34 +30,34 @@
         Leaderboard
       </h5>
       <div>
-        <div v-for="(playerArray, team_name ) in this.leaderboard"
+        <div v-for="(team) in this.leaderboardArray"
           id="accordion"
-          :key="team_name">
+          :key="team[0].team_name">
           <div class="card">
-            <div class="card-header container" :id="'heading-'+team_name">
+            <div class="card-header container" :id="'heading-'+team[0].team_name">
               <div
                 data-toggle="collapse"
-                :data-target="'#collapsing' + team_name.split(' ').join('')"
+                :data-target="'#collapsing' + team[0].team_name.split(' ').join('')"
                 aria-expanded="false"
                 row="botton"
-                :aria-controls="'collapsing' + team_name.split(' ').join('')"
+                :aria-controls="'collapsing' + team[0].team_name.split(' ').join('')"
                 class="row">
                 <div class="col-6">
-                  {{ team_name }}
+                  {{ team[0].team_name }}
                 </div>
                 <div class="col-6 text-right">
-                  {{ scores[team_name] }}
+                  {{ scores[team[0].team_name] }}
                 </div>
               </div>
             </div>
             <div
-              :id="'collapsing' + team_name.split(' ').join('')"
+              :id="'collapsing' + team[0].team_name.split(' ').join('')"
               class="collapse"
-              :aria-labelledby="'heading-'+team_name"
+              :aria-labelledby="'heading-'+team[0].team_name"
               data-parent="#accordion">
               <div class="card-body container">
                 <ClickableRowTable
-                  :rowData=playerArray
+                  :rowData=team
                   :headers=headers
                   :columns=columns
                   :onClickFunction=onClickFunction
@@ -90,7 +90,8 @@ export default {
       tournament: new Tournament('', null),
       user: new User('', '', ''),
       currentUserTeam: [],
-      leaderboard: {},
+      leaderboardObject: {},
+      leaderboardArray: [],
       message: '',
       scores: {},
       headers: null,
@@ -109,13 +110,23 @@ export default {
     TournamentService.getLeaderboardData(this.tournament.id).then(
       (response) => {
         this.tournament.name = response.data.tournamentName.name;
-        this.leaderboard = response.data.leaderboard;
+        // May be able to remove the leaderboardObject
+        // in favor of the leaderboardArray
+        this.leaderboardObject = response.data.leaderboard;
         this.scores = response.data.scoresByTeam;
         if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
-          this.currentUserTeam = this.leaderboard[this.user.team_name];
+          this.currentUserTeam = this.leaderboardObject[this.user.team_name];
         }
         this.headers = ['Players', 'Score'];
         this.columns = ['last_name', 'score'];
+        
+        // leaderboardArray is used to easily sort teams by score
+        for (const team in this.leaderboardObject) {
+          this.leaderboardArray.push(this.leaderboardObject[team])
+        }
+        this.leaderboardArray.sort((a, b) => {
+          return this.scores[a[0].team_name] - this.scores[b[0].team_name]
+        })
       }, (error) => {
         this.message = (error.response && error.response.data)
           || error.message
