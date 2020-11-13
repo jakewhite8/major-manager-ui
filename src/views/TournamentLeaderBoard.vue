@@ -25,7 +25,7 @@
         />
       </div>
     </div>
-    <div class="container">
+    <div class="container leaderboard">
       <h5>
         Leaderboard
       </h5>
@@ -149,5 +149,8 @@ export default {
 <style>
 div.card-header:hover {
   cursor: pointer;
+}
+div.leaderboard {
+  margin-bottom: 100px;
 }
 </style>
