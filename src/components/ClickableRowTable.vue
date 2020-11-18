@@ -50,6 +50,6 @@ tr.clickableRow:hover {
 }
 tr.selectedBackground {
   background-color: #343a40;
-  color: white;
+  color: rgba(255,255,255,.75);
 }
 </style>
