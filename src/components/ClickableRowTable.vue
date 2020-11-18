@@ -49,6 +49,7 @@ tr.clickableRow:hover {
   cursor: pointer;
 }
 tr.selectedBackground {
-  background-color: rgb(204, 204, 255);
+  background-color: #343a40;
+  color: white;
 }
 </style>
