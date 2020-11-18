@@ -62,4 +62,7 @@ export default {
     background-color: #343a40;
     color: rgba(255,255,255,.75);
   }
+  .profile-buttons button:hover {
+    color: white;
+  }
 </style>
