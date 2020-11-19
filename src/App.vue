@@ -5,7 +5,7 @@
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
-            <font-awesome-icon icon="home" />Home
+            <font-awesome-icon icon="home" />
           </router-link>
         </li>
         <li v-if="showAdminPage" class="nav-item">
@@ -36,12 +36,16 @@
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
-            {{ currentUser.team_name }}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/settings" class="nav-link">
+            <font-awesome-icon icon="cog" />
           </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" />LogOut
+            <font-awesome-icon icon="sign-out-alt" />
           </a>
         </li>
       </div>
@@ -82,3 +86,8 @@ export default {
   },
 };
 </script>
+<style>
+  .nav-item svg {
+    font-size: 25px;
+  }
+</style>

@@ -10,6 +10,7 @@ import {
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 
 import App from './App.vue';
@@ -18,7 +19,7 @@ import store from './store';
 import titleComponent from './components/WebsiteTitle.vue';
 
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faCog);
 
 Vue.config.productionTip = false;
 

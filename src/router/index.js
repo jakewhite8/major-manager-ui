@@ -13,6 +13,7 @@ import PlayerSelectionPage from '../views/PlayerSelectionPage.vue';
 import TournamentLeaderBoard from '../views/TournamentLeaderBoard.vue';
 import UserActiveTeams from '../views/UserActiveTeams.vue';
 import UserPastTeams from '../views/UserPastTeams.vue';
+import Settings from '../views/Settings.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
 
@@ -75,6 +76,10 @@ const routes = [
   {
     path: '/past-teams',
     component: UserPastTeams,
+  },
+  {
+    path: '/settings',
+    component: Settings,
   },
   {
     path: '*',
