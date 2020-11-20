@@ -23,6 +23,13 @@ class UserService {
   getAdminPage() {
     return axios.get(`${API_URL}admin`, { headers: authHeader() });
   }
+
+  updateUser(user) {
+    return axios.put(`${server.URL}api/v1/update_user`, {
+      team_name: user.team_name,
+      email: user.email
+    }, { headers: authHeader() })
+  }
 }
 
 export default new UserService();

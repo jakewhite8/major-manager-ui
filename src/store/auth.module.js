@@ -1,5 +1,6 @@
 // create separate auth state store
 import AuthService from '../services/auth.service';
+import UserService from '../services/user.service'
 
 const activeUser = JSON.parse(localStorage.getItem('user'));
 const initialState = activeUser
@@ -32,6 +33,14 @@ const auth = {
         return Promise.reject(error);
       });
     },
+    updateUserInfo({ commit }, user) {
+      return UserService.updateUser(user).then((res) => {
+        commit('updateSuccess', res.data);
+        return Promise.resolve(res);
+      }, (error) => {
+        return Promise.reject(error)
+      });
+    }
   },
   mutations: {
     loginSuccess(state, user) {
@@ -52,6 +61,10 @@ const auth = {
     registerFailure(state) {
       state.status.loggedIn = false;
     },
+    updateSuccess(state, user) {
+      state.user.email = user.email;
+      state.user.team_name = user.team_name;
+    }
   },
 };
 

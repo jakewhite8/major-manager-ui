@@ -4,6 +4,12 @@
       <h3>Account Settings</h3>
     </header>
     <div class="card overflow-hidden">
+      <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'">
+        {{message}}
+      </div>
       <div class="row no-gutters row-bordered row-border-light">
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
@@ -19,11 +25,17 @@
               <div class="card-body">
                 <div class="form-group">
                   <label class="form-label">Team Name</label>
-                  <input type="text" class="form-control" value="Nelle Maxwell">
+                  <input
+                    class="form-control"
+                    v-model="currentUser.team_name"
+                    @change="textInputChange('team_name')">
                 </div>
                 <div class="form-group">
                   <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" value="nmaxwell@mail.com">
+                  <input
+                    class="form-control"
+                    v-model="currentUser.email"
+                    @change="textInputChange('email')">
                 </div>
               </div>
             </div>
@@ -117,25 +129,94 @@
       </div>
     </div>
     <div class="text-right mt-3">
-      <button type="button" class="btn btn-primary-dark-blue">Save changes</button>&nbsp;
-      <button type="button" class="btn btn-default">Cancel</button>
+      <button
+        type="button"
+        v-on:click="saveChanges()"
+        :disabled="loading"
+        class="btn btn-primary-dark-blue">
+        <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+        <span>Save changes</span>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import UserService from '../services/user.service';
+
 export default {
   name: 'Settings',
+  data() {
+    return {
+      changeTeamName: false,
+      changeEmail: false,
+      changePassword: false,
+      originalCurrentUser: {},
+      successful: false,
+      message: '',
+      loading: false
+    }
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
   },
   methods: {
-    
+    saveChanges() {
+      this.loading = true;
+      if (this.changeEmail || this.changeTeamName) {
+        // run validator
+
+        // Update this.$store.state.auth.user
+        this.$store.dispatch('auth/updateUserInfo', this.currentUser).then(
+          () => {
+            this.successful = true;
+            this.message = 'Update Successful';
+            this.changeTeamName = false;
+            this.changeEmail = false;
+            this.changePassword = false;
+            for (let prop in this.currentUser) {
+              this.originalCurrentUser[prop] = this.currentUser[prop];
+            }
+            this.loading = false;
+          }, (error) => {
+            this.successful = false;
+            this.message = 'Update Unsuccessful'
+            this.loading = false;
+          }
+        )
+      }
+      this.loading = false;
+    },
+    textInputChange(field) {
+      // remove succes or error messages
+      this.message = '';
+      this.successful = false;
+
+      switch (field) {
+        case 'team_name':
+          if (this.currentUser.team_name != this.originalCurrentUser.team_name) {
+            this.changeTeamName = true;
+          } else {
+            this.changeTeamName = false;
+          }
+          break
+        case 'email':
+          if (this.currentUser.email != this.originalCurrentUser.email) {
+            this.changeEmail = true;
+          } else {
+            this.changeEmail = false;
+          }
+          break
+      }
+    }
   },
   mounted() {
-    
+    // Need deep copy of the current user
+    for (let prop in this.$store.state.auth.user) {
+      this.originalCurrentUser[prop] = this.$store.state.auth.user[prop];
+    }
   },
 };
 </script>
@@ -146,9 +227,15 @@ export default {
     color: rgba(255,255,255,.75) !important;
     font-weight: bold !important;
   }
+  a.active:hover {
+    color: white !important;
+  }
   button.btn-primary-dark-blue {
     background-color: #343a40;
     border-color: #343a40;
     color: rgba(255,255,255,.75);
+  }
+  button.btn-primary-dark-blue:hover {
+    color: white;
   }
 </style>
