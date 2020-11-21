@@ -44,11 +44,26 @@
               type="password"
               class="form-control"
               name="password"
+              ref="password"
             />
             <div
               v-if="submitted && errors.has('password')"
               class="alert-danger"
             >{{errors.first('password')}}</div>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation">Confirm Password</label>
+            <input
+              v-validate="'required|confirmed:password'"
+              type="password"
+              class="form-control"
+              name="password_confirmation"
+              data-vv-as="password"
+            />
+            <div
+              v-if="submitted && errors.has('password_confirmation')"
+              class="alert-danger"
+            >{{errors.first('password_confirmation')}}</div>
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
