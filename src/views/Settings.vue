@@ -14,7 +14,7 @@
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
+            <!-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a> -->
             <!-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a> -->
           </div>
         </div>
@@ -53,7 +53,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="account-change-password">
+            <!-- <div class="tab-pane fade" id="account-change-password">
               <div class="card-body pb-2">
                 <div class="form-group">
                   <label class="form-label">Current password</label>
@@ -68,7 +68,7 @@
                   <input type="password" class="form-control">
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="tab-pane fade" id="account-notifications">
               <div class="card-body pb-2">
                 <h6 class="mb-4">Activity</h6>
