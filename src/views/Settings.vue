@@ -28,14 +28,28 @@
                   <input
                     class="form-control"
                     v-model="currentUser.team_name"
+                    v-validate="'required|min:3|max:40'"
+                    name="team_name"
                     @change="textInputChange('team_name')">
+                  <div
+                    v-if="submitted && errors.has('team_name')"
+                    class="alert-danger error-settings-page">
+                    {{errors.first('team_name')}}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">E-mail</label>
                   <input
                     class="form-control"
                     v-model="currentUser.email"
+                    v-validate="'required|email|max:50'"
+                    type="email"
+                    name="email"
                     @change="textInputChange('email')">
+                  <div
+                    v-if="submitted && errors.has('email')"
+                    class="alert-danger error-settings-page">
+                    {{errors.first('email')}}</div>
                 </div>
               </div>
             </div>
@@ -154,7 +168,8 @@ export default {
       originalCurrentUser: {},
       successful: false,
       message: '',
-      loading: false
+      loading: false,
+      submitted: false
     }
   },
   computed: {
@@ -164,28 +179,37 @@ export default {
   },
   methods: {
     saveChanges() {
+      this.submitted = true;
       this.loading = true;
       if (this.changeEmail || this.changeTeamName) {
         // run validator
+        // need to make sure fields are not blank
+        // make sure emails are not duplicates
+        // make sure emails are correct format
 
-        // Update this.$store.state.auth.user
-        this.$store.dispatch('auth/updateUserInfo', this.currentUser).then(
-          () => {
-            this.successful = true;
-            this.message = 'Update Successful';
-            this.changeTeamName = false;
-            this.changeEmail = false;
-            this.changePassword = false;
-            for (let prop in this.currentUser) {
-              this.originalCurrentUser[prop] = this.currentUser[prop];
-            }
-            this.loading = false;
-          }, (error) => {
-            this.successful = false;
-            this.message = 'Update Unsuccessful'
-            this.loading = false;
+        this.$validator.validate().then((isValid) => {
+          if (isValid) {
+            // Update this.$store.state.auth.user
+            this.$store.dispatch('auth/updateUserInfo', this.currentUser).then(
+              () => {
+                this.successful = true;
+                this.message = 'Update Successful';
+                this.changeTeamName = false;
+                this.changeEmail = false;
+                this.changePassword = false;
+                for (let prop in this.currentUser) {
+                  this.originalCurrentUser[prop] = this.currentUser[prop];
+                }
+                this.loading = false;
+              }, (error) => {
+                this.successful = false;
+                this.message = 'Update Unsuccessful'
+                this.loading = false;
+              }
+            )
+
           }
-        )
+        })
       }
       this.loading = false;
     },
@@ -193,6 +217,7 @@ export default {
       // remove succes or error messages
       this.message = '';
       this.successful = false;
+      this.submitted = false;
 
       switch (field) {
         case 'team_name':
@@ -237,5 +262,10 @@ export default {
   }
   button.btn-primary-dark-blue:hover {
     color: white;
+  }
+  div.error-settings-page {
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
   }
 </style>
