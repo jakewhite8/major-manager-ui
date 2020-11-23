@@ -3,12 +3,18 @@
     <header class="jumbotron">
       <h3>Active Tournaments</h3>
     </header>
-    <ClickableRowTable
-      :rowData=tournaments
-      :headers=headers
-      :columns=columns
-      :onClickFunction=onClickFunction
-    />
+    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+    <div v-if="loading || tournaments && tournaments.length">
+      <ClickableRowTable
+        :rowData=tournaments
+        :headers=headers
+        :columns=columns
+        :onClickFunction=onClickFunction
+      />
+    </div>
+    <div v-else>
+      <h3>No Tournaments Available</h3>
+    </div>
   </div>
 </template>
 
@@ -23,6 +29,7 @@ export default {
       tournaments: null,
       headers: null,
       columns: null,
+      loading: false,
     };
   },
   components: {
@@ -34,16 +41,19 @@ export default {
     },
   },
   mounted() {
+    this.loading = true
     TournamentService.getActiveTournaments().then(
       (response) => {
         this.tournaments = response.data;
         this.headers = ['Tournaments', 'Start Date'];
         this.columns = ['name', 'start_date'];
+        this.loading = false;
       },
       (error) => {
         this.tournaments = (error.response && error.response.data)
           || error.message
           || error.toString();
+        this.loading = false;
       },
     );
   },
