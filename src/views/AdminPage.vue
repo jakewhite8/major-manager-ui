@@ -39,10 +39,10 @@
         <span>Create Tournament</span>
         <span v-show="loading" class="spinner-border spinner-border-sm"></span>
       </button>
-      <div v-if="submittedError && message" class="alert-danger error-admin-page">
-        {{this.message}}
-      </div>
-      <div v-if="submittedSuccessful && message" class="alert-success error-admin-page">
+      <div
+        v-if="message"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+        class="error-admin-page">
         {{this.message}}
       </div>
     </div>
@@ -63,8 +63,7 @@ export default {
       tournamentNameError: false,
       tournamentDateError: false,
       submitted: false,
-      submittedSuccessful: false,
-      submittedError: false,
+      successful: false,
       message: '',
       loading: false
     };
@@ -91,22 +90,20 @@ export default {
         TournamentService.createTournament(this.newTournament).then((response) => {
           this.newTournament = new Tournament('', null, '');
           this.message = 'Tournament Created';
-          this.submittedSuccessful = true;
-          this.submittedError = false;
+          this.successful = true;
           this.submitted = false;
           this.loading = false;
         }, (error) => {
           this.message = typeof error.message == 'string' ? error.message : 'Error Creating Team' ;
-          this.submittedSuccessful = false;
-          this.submittedError = true;
+          this.successful = false
           this.loading = false;
         });
       }
       this.loading = false;
     },
     checkForErrors() {
-      this.submittedSuccessful = false;
-      this.submittedError = false;
+      this.successful = false;
+      this.message = '';
       if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
         this.tournamentNameError = true;
       } else {
