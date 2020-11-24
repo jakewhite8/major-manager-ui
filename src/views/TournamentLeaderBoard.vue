@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       content: 'Leaderboard',
-      tournament: new Tournament('', null),
+      tournament: new Tournament('', null, ''),
       user: new User('', '', ''),
       currentUserTeam: [],
       leaderboardObject: {},

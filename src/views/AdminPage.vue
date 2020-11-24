@@ -9,7 +9,7 @@
     <div class="form-group">
       <label class="form-label" for="tournament_name">Tournament Name</label>
       <input
-        v-model="newTournament.tournament_name"
+        v-model="newTournament.name"
         type="text"
         @change="checkForErrors()"
         class="form-control"
@@ -21,7 +21,7 @@
     <div class="form-group">
       <label class="form-label" for="tournament_date">Tournament Date</label>
       <input
-        v-model="newTournament.tournament_date"
+        v-model="newTournament.start_date"
         type="datetime-local"
         @change="checkForErrors()"
         class="form-control"
@@ -52,16 +52,14 @@
 <script>
 import UserService from '../services/user.service';
 import TournamentService from '../services/tournament.service';
+import Tournament from '../models/tournament';
 
 export default {
   name: 'Admin',
   data() {
     return {
       content: '',
-      newTournament: {
-        tournament_name: '',
-        tournament_date: null
-      },
+      newTournament: new Tournament('', null, ''),
       tournamentNameError: false,
       tournamentDateError: false,
       submitted: false,
@@ -91,10 +89,7 @@ export default {
 
       if(!this.tournamentNameError && !this.tournamentDateError) {
         TournamentService.createTournament(this.newTournament).then((response) => {
-          this.newTournament = {
-            tournament_name: '',
-            tournament_date: null
-          };
+          this.newTournament = new Tournament('', null, '');
           this.message = 'Tournament Created';
           this.submittedSuccessful = true;
           this.submittedError = false;
@@ -112,13 +107,13 @@ export default {
     checkForErrors() {
       this.submittedSuccessful = false;
       this.submittedError = false;
-      if (this.newTournament.tournament_name.length < 3 || this.newTournament.tournament_name.length > 40) {
+      if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
         this.tournamentNameError = true;
       } else {
         this.tournamentNameError = false;
       }
       let dateTimeRegex = RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}');
-      if (dateTimeRegex.test(this.newTournament.tournament_date) ) {
+      if (dateTimeRegex.test(this.newTournament.start_date) ) {
         this.tournamentDateError = false;
       } else {
         this.tournamentDateError = true;
