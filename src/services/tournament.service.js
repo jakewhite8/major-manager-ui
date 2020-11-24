@@ -42,6 +42,10 @@ class TournamentService {
   getPastTournamentsForAUser() {
     return axios.get(`${API_URL}/past_tournament_user_data`, { headers: authHeader() });
   }
+
+  createTournament(tournament) {
+    return axios.post(`${API_URL}/create_tournament`, tournament, { headers: authHeader() });
+  }
 }
 
 export default new TournamentService();
