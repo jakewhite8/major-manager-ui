@@ -17,6 +17,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import titleComponent from './components/WebsiteTitle.vue';
+import vSelect from 'vue-select';
 
 
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faCog);
@@ -26,6 +27,7 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('vue-title', titleComponent);
+Vue.component('v-select', vSelect);
 
 new Vue({
   router,
