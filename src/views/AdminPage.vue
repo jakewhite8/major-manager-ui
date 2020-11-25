@@ -21,7 +21,7 @@
                   <input
                     v-model="newTournament.name"
                     type="text"
-                    @change="checkForErrors()"
+                    @change="checkForCreateTournamentErrors()"
                     class="form-control"
                     name="tournament_name">
                   <div v-if="submitted && tournamentNameError" class="alert-danger error-admin-page">
@@ -33,7 +33,7 @@
                   <input
                     v-model="newTournament.start_date"
                     type="datetime-local"
-                    @change="checkForErrors()"
+                    @change="checkForCreateTournamentErrors()"
                     class="form-control"
                     name="tournament_date">
                   <div v-if="submitted && tournamentDateError" class="alert-danger error-admin-page">
@@ -121,7 +121,7 @@ export default {
       successful: false,
       message: '',
       loadingCreateTournament: false,
-      loadingPlayerData: false;
+      loadingPlayerData: false,
       playerData: '',
       options: ['hello', 'world', 'foo'],
       tournamentId: null
@@ -143,7 +143,7 @@ export default {
     createTournament() {
       this.loadingCreateTournament = true;
       this.submitted = true;
-      this.checkForErrors();
+      this.checkForCreateTournamentErrors();
 
       if(!this.tournamentNameError && !this.tournamentDateError) {
         TournamentService.createTournament(this.newTournament).then((response) => {
@@ -160,7 +160,7 @@ export default {
       }
       this.loadingCreateTournament = false;
     },
-    checkForErrors() {
+    checkForCreateTournamentErrors() {
       this.successful = false;
       this.message = '';
       if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
