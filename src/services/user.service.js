@@ -30,6 +30,11 @@ class UserService {
       email: user.email
     }, { headers: authHeader() })
   }
+
+  updatePlayerData(tournamentId, playerData) {
+    return axios.post(`${server.URL}api/v1/upload_player_scores/${tournamentId}`,
+      playerData, { headers:authHeader() })
+  }
 }
 
 export default new UserService();

@@ -70,6 +70,7 @@
                       <button
                         type="button"
                         :disabled="loadingPlayerData"
+                        v-on:click="updatePlayerData()"
                         class="btn btn-primary-dark-blue">
                         <span>Add Data</span>
                         <span v-show="loadingPlayerData" class="spinner-border spinner-border-sm"></span>
@@ -79,18 +80,39 @@
                   <v-select
                     name="select_tournament"
                     :options="options"
-                    v-model="tournamentId"
+                    label="name"
+                    @input="checkForPlayerDataErrors"
+                    v-model="selectedTournament"
                     ></v-select>
-                  <!-- <div v-if="submitted && tournamentDateError" class="alert-danger error-admin-page">
-                    Date is required
-                  </div> -->
+                    <div class="row select-tournament-error-style">
+                      <div v-if="playerTournamentNameSectionError" class="col-12 alert-danger error-admin-page">
+                        Select a Tournament
+                      </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label" for="player_data">Player data</label>
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="form-label" for="player_data">Player data</label>
+                    </div>
+                    <div class="col-6 text-right">
+                      <div
+                        v-if="playerDataMessage"
+                        :class="playerDataSuccessful ? 'alert-success' : 'alert-danger'"
+                        class="alert-player-data-section">
+                        {{this.playerDataMessage}}
+                      </div>
+                      <div v-if="playerDataSectionError" class="alert-danger alert-player-data-section">
+                        Player data cannot be empty
+                      </div>
+                    </div>
+                  </div>
                   <textarea
                     v-model="playerData"
                     class="form-control"
                     rows="150"
+                    placeholder="Entries should be a JSON object for each player, seperated by a comma, with the fields: 'first_name', 'last_name', 'score', 'tier' (optional), and 'position' (optional). No comma after the last player. "
+                    @change="checkForPlayerDataErrors()"
                     name="player_data">
                   </textarea>
                 </div>
@@ -120,11 +142,16 @@ export default {
       submitted: false,
       successful: false,
       message: '',
+      playerDataMessage: '',
       loadingCreateTournament: false,
       loadingPlayerData: false,
       playerData: '',
-      options: ['hello', 'world', 'foo'],
-      tournamentId: null
+      options: [],
+      selectedTournament: null,
+      playerTournamentNameSectionError: false,
+      playerDataSectionError: false,
+      playerDataSuccessful: false,
+      submittedPlayerData: false,
     };
   },
   mounted() {
@@ -138,6 +165,16 @@ export default {
           || error.toString();
       },
     );
+    TournamentService.getActiveTournaments().then(
+      (response) => {
+        this.options = response.data;
+      },
+      (error) => {
+        this.playerDataMessage = (error.response && error.response.data)
+          || error.message
+          || error.toString();
+      }
+    )
   },
   methods: {
     createTournament() {
@@ -161,6 +198,7 @@ export default {
       this.loadingCreateTournament = false;
     },
     checkForCreateTournamentErrors() {
+      // Remove error or success message
       this.successful = false;
       this.message = '';
       if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
@@ -174,6 +212,74 @@ export default {
       } else {
         this.tournamentDateError = true;
       }
+    },
+    checkForPlayerDataErrors() {
+      // Remove error or success message
+      this.playerDataMessage = '';
+      // Make sure error messages are not being displayed
+      // before the submit buttons has been selected
+      if (this.submittedPlayerData) {
+        if (!this.selectedTournament) {
+          this.playerTournamentNameSectionError = true;
+        } else {
+          this.playerTournamentNameSectionError = false;
+        }
+        if (!this.playerData) {
+          this.playerDataSectionError = true;
+        } else {
+          this.playerDataSectionError = false;
+        }
+      }
+    },
+    updatePlayerData() {
+      this.submittedPlayerData = true;
+      this.checkForPlayerDataErrors();
+      this.loadingPlayerData = true;
+
+      if (this.playerData && this.selectedTournament) {
+        // create playerData JSON object needed by the server to update a Player's Data
+        // {
+        //   "playerData": [{
+        //     "first_name": "Dustin",
+        //     "last_name": "Johnson",
+        //     "score": -4,
+        //     "postion": 2,
+        //     "tier": 2,
+        //   },
+        //   {
+        //     "first_name": "Justin",
+        //     "last_name": "Rose",
+        //     "score": 12,
+        //     "postion": "CUT",
+        //     "tier": 2,
+        //   }
+        //   ]
+        // }
+        try {
+          const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`)
+
+          UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest).then(
+            (response) => {
+              this.playerDataSuccessful = true;
+              this.playerDataMessage = 'Tournament Update Successful';
+              this.submittedPlayerData = false;
+              this.selectedTournament = null;
+              this.playerData = '';
+              this.loadingPlayerData = false;
+            }, (error) => {
+              this.playerDataSuccessful = false;
+              this.playerDataMessage = typeof error.message == 'string' ? error.message : 'Tournament Failed to Update';
+              this.loadingPlayerData = false;
+            }
+          )
+        } catch(error) {
+          this.playerDataSuccessful = false;
+          this.playerDataMessage = typeof error.message == 'string' ? error.message : 'Player Data Syntax May Be Incorrect';
+          this.loadingPlayerData = false;
+        }
+        
+      }
+      this.loadingPlayerData = false;
     }
   }
 };
@@ -189,5 +295,11 @@ export default {
   }
   div.tournament-select-row div label {
     margin-bottom: 0px
+  }
+  div.alert-player-data-section {
+    text-align: center;
+  }
+  div.select-tournament-error-style {
+    margin: 0;
   }
 </style>
