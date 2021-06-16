@@ -45,7 +45,7 @@ export default {
   methods: {
     onClickFunction(id) {
       // Take user to a page to edit team
-      this.$router.push(`/tournament/${id}/leaderboard`);
+      this.$router.push(`/tournament/${id}/player-selection`);
     },
   },
   mounted() {
