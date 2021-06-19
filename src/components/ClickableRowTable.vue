@@ -13,7 +13,7 @@
       <tbody>
         <tr v-for="data in rowData"
           :key="data.id"
-          v-on:click="onClickFunction(data.id)"
+          v-on:click="onClickFunction(data.id, data['start_date'] ? data['start_date'] : false)"
           class="clickableRow"
           v-bind:class="[(data.selected) ? 'selectedBackground' : '']">
             <td v-for="column in columns" :key="column">

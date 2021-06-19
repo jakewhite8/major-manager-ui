@@ -10,6 +10,12 @@ const API_URL = `${server.URL}api/v1`;
 'setTeam', 'getActiveTournamentsForAUser', 'getPastTournamentsForAUser',
 'getLeaderboardData'] }] */
 class TournamentService {
+  // Return tournaments that have not started yet
+  getUpcomingTournaments() {
+    return axios.get(`${API_URL}/upcoming_tournaments`);
+  }
+
+  // Return tournaments that have not ended yet
   getActiveTournaments() {
     return axios.get(`${API_URL}/active_tournaments`);
   }

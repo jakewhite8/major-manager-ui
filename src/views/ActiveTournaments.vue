@@ -42,7 +42,7 @@ export default {
   },
   mounted() {
     this.loading = true
-    TournamentService.getActiveTournaments().then(
+    TournamentService.getUpcomingTournaments().then(
       (response) => {
         this.tournaments = response.data;
         this.headers = ['Tournaments', 'Start Date'];
