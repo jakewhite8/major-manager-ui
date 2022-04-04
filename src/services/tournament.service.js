@@ -20,6 +20,11 @@ class TournamentService {
     return axios.get(`${API_URL}/active_tournaments`);
   }
 
+  // Return tournaments that have ended
+  getConcludedTournaments() {
+    return axios.get(`${API_URL}/concluded_tournaments`);
+  }
+
   // Get information regarding a Tournament and the Players in
   // it. A Users team if they have one will be returned here as well.
   // Used to Edit and Create a Team
@@ -51,6 +56,11 @@ class TournamentService {
 
   createTournament(tournament) {
     return axios.post(`${API_URL}/create_tournament`, tournament, { headers: authHeader() });
+  }
+
+  // Returns all the Teams that participated in a given Tournament
+  getTeamsInATournament(id) {
+    return axios.get(`${API_URL}/tournament_team_data/${id}`, { headers: authHeader() });
   }
 }
 

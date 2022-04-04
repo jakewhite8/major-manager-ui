@@ -35,6 +35,13 @@ class UserService {
     return axios.post(`${server.URL}api/v1/upload_player_scores/${tournamentId}`,
       playerData, { headers:authHeader() })
   }
+
+  addWinningTeamToTournament(tournamentId, userId) {
+    return axios.post(`${server.URL}api/v1/add_winning_team`, {
+      tournamentId,
+      userId
+    }, { headers: authHeader() })
+  }
 }
 
 export default new UserService();

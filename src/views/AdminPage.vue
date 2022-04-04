@@ -9,6 +9,7 @@
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#create-tournament">Create Tournament</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#add-players">Add Players</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#add-winner">Add Winning Team</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -118,6 +119,80 @@
                 </div>
               </div>
             </div>
+            <div class="tab-pane fade" id="add-winner">
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="row tournament-select-row">
+                    <div class="col-6">
+                      <label class="form-label" for="select_winner_tournament">Select Tournament</label>
+                    </div>
+                    <div class="col-6 text-right">
+                      <div
+                        v-if="concludedTournamentMessage"
+                        :class="!concludedTournamentMessage ? 'alert-success' : 'alert-danger'"
+                        class="alert-player-data-section">
+                        {{this.concludedTournamentMessage}}
+                      </div>
+                      <div v-if="playerDataSectionError" class="alert-danger alert-player-data-section">
+                        Player data cannot be empty
+                      </div>
+                    </div>
+                  </div>
+                  <v-select
+                    name="select_winner_tournament"
+                    :options="arrayOfConcludedTournaments"
+                    label="name"
+                    @input="addWinningTeamTournamentSelectOnChange"
+                    v-model="selectedAddWinnerTournament"
+                    >
+                  </v-select>
+                  <div class="row select-tournament-error-style">
+                    <div v-if="winningTournamentSelectionError" class="col-12 alert-danger error-admin-page">
+                      {{this.winningTournamentSelectionErrorMessage}}
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAddWinnerTournament">
+                  <div class="form-group">
+                    <div class="row tournament-select-row">
+                      <div class="col-6">
+                        <label class="form-label" for="select_winner_team">Select Team</label>
+                      </div>
+                    </div>
+                    <v-select
+                      name="select_winner_team"
+                      :options="arrayOfTeamsInATournament"
+                      label="team_name"
+                      @input="addWinningTeamSelectOnChange"
+                      v-model="selectedAddWinnerTeam"
+                      >
+                    </v-select>
+                    <div class="row select-tournament-error-style">
+                      <div v-if="winningTeamSelectionError" class="col-12 alert-danger error-admin-page">
+                        {{this.winningTeamSelectionErrorMessage}} 
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      :disabled="loadingAddWinningTeam"
+                      v-on:click="addWinningTeam()"
+                      class="btn btn-primary-dark-blue">
+                      <span>Add Winning Team</span>
+                      <span v-show="loadingAddWinningTeam" class="spinner-border spinner-border-sm"></span>
+                    </button>
+                    <div
+                      v-if="messageWinningTeam"
+                      :class="successfulWinningTeam ? 'alert-success' : 'alert-danger'"
+                      class="error-admin-page">
+                      {{this.messageWinningTeam}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -142,13 +217,25 @@ export default {
       submitted: false,
       successful: false,
       message: '',
+      successfulWinningTeam: false,
+      messageWinningTeam: '',
       playerDataMessage: '',
+      concludedTournamentMessage: '',
       loadingCreateTournament: false,
       loadingPlayerData: false,
+      loadingAddWinningTeam: false,
       playerData: '',
       options: [],
+      arrayOfConcludedTournaments: [],
+      arrayOfTeamsInATournament: [],
       selectedTournament: null,
+      selectedAddWinnerTournament: null,
+      selectedAddWinnerTeam: null,
       playerTournamentNameSectionError: false,
+      winningTeamSelectionError: false,
+      winningTournamentSelectionError: false,
+      winningTeamSelectionErrorMessage: '',
+      winningTournamentSelectionErrorMessage: '',
       playerDataSectionError: false,
       playerDataSuccessful: false,
       submittedPlayerData: false,
@@ -175,8 +262,34 @@ export default {
           || error.toString();
       }
     )
+    TournamentService.getConcludedTournaments().then(
+      (response) => {
+        this.arrayOfConcludedTournaments = response.data;
+      },
+      (error) => {
+        this.concludedTournamentMessage = (error.response && error.response.data)
+          || error.message
+          || error.toString();
+      }
+    )
   },
   methods: {
+    checkForCreateTournamentErrors() {
+      // Remove error or success message
+      this.successful = false;
+      this.message = '';
+      if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
+        this.tournamentNameError = true;
+      } else {
+        this.tournamentNameError = false;
+      }
+      let dateTimeRegex = RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}');
+      if (dateTimeRegex.test(this.newTournament.start_date) ) {
+        this.tournamentDateError = false;
+      } else {
+        this.tournamentDateError = true;
+      }
+    },
     createTournament() {
       this.loadingCreateTournament = true;
       this.submitted = true;
@@ -196,22 +309,6 @@ export default {
         });
       }
       this.loadingCreateTournament = false;
-    },
-    checkForCreateTournamentErrors() {
-      // Remove error or success message
-      this.successful = false;
-      this.message = '';
-      if (this.newTournament.name.length < 3 || this.newTournament.name.length > 40) {
-        this.tournamentNameError = true;
-      } else {
-        this.tournamentNameError = false;
-      }
-      let dateTimeRegex = RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}');
-      if (dateTimeRegex.test(this.newTournament.start_date) ) {
-        this.tournamentDateError = false;
-      } else {
-        this.tournamentDateError = true;
-      }
     },
     checkForPlayerDataErrors() {
       // Remove error or success message
@@ -280,6 +377,68 @@ export default {
         
       }
       this.loadingPlayerData = false;
+    },
+    addWinningTeamTournamentSelectOnChange() {
+      // Remove error or success messages
+      this.successfulWinningTeam = false;
+      this.messageWinningTeam = '';
+      this.winningTeamSelectionError = false;
+      this.winningTournamentSelectionError = false;
+      this.winningTournamentSelectionErrorMessage = '';
+      // Make sure no TEAM is selected now that the tournament has been changed
+      this.selectedAddWinnerTeam = '';
+      
+      // Tournament has been changed
+      // Populate dropdown with teams that participated in tournament
+      if (this.selectedAddWinnerTournament) {
+        TournamentService.getTeamsInATournament(this.selectedAddWinnerTournament.id).then(
+          (response) => {
+            this.arrayOfTeamsInATournament = response.data
+          },
+          (error) => {
+            let errorMessage = (error.response && error.response.data)
+              || error.message
+              || error.toString()
+              || 'Error Retrieving Tournament Information';
+            this.winningTournamentSelectionErrorMessage = errorMessage;
+            this.winningTournamentSelectionError = true;
+          }
+        )
+      }
+    },
+    addWinningTeamSelectOnChange() {
+      if (this.selectedAddWinnerTeam) {
+        this.winningTeamSelectionError = false;
+      }
+    },
+    addWinningTeam() {
+      this.loadingAddWinningTeam = true;
+
+      if (this.selectedAddWinnerTournament && this.selectedAddWinnerTournament.id && this.selectedAddWinnerTeam && this.selectedAddWinnerTeam.id) {
+        UserService.addWinningTeamToTournament(this.selectedAddWinnerTournament.id, this.selectedAddWinnerTeam.id).then(
+          (response) => {
+            this.messageWinningTeam = 'Update Successful';
+            this.successfulWinningTeam = true;
+
+            this.loadingAddWinningTeam = false;
+          }, (error) => {
+            this.concludedTournamentMessage = typeof error.message == 'string' ? error.message : 'Winning Team Failed to be set';
+            this.loadingAddWinningTeam = false;
+          }
+        )
+      } else {
+        // No Team selected
+        if (!this.selectedAddWinnerTeam || !this.selectedAddWinnerTeam.id) {
+          this.winningTeamSelectionError = true;
+          this.winningTeamSelectionErrorMessage = 'Select A Team';
+        }
+        // No Tournament selected
+        if (!this.selectedAddWinnerTournament || !this.selectedAddWinnerTournament.id) {
+          this.winningTournamentSelectionError = true;
+          this.winningTournamentSelectionErrorMessage = 'Select A Tournament'
+        }
+        this.loadingAddWinningTeam = false;
+      }
     }
   }
 };
@@ -302,4 +461,8 @@ export default {
   div.select-tournament-error-style {
     margin: 0;
   }
+  div#add-winner {
+    height: 600px;
+  }
+
 </style>
