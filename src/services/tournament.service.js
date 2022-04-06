@@ -62,6 +62,11 @@ class TournamentService {
   getTeamsInATournament(id) {
     return axios.get(`${API_URL}/tournament_team_data/${id}`, { headers: authHeader() });
   }
+
+  // Get an array of past Tournaments and the Team that one them
+  getLeagueLeaderboard() {
+    return axios.get(`${API_URL}/league_leaderboard`, { headers: authHeader() });
+  }
 }
 
 export default new TournamentService();
