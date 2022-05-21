@@ -80,8 +80,8 @@ export default {
       }, (error) => {
         this.errorMessage = (error.response && error.response.data)
           || error.message
-          || error.toString();        
-      }
+          || error.toString();
+      },
     );
   },
   methods: {
@@ -89,7 +89,6 @@ export default {
       if (id) {
         this.$router.push(`/tournament/${id}/leaderboard`);
       }
-      
     },
   },
 };

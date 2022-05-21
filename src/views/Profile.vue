@@ -7,24 +7,24 @@
     </header>
     <div class="profile-buttons">
       <p>
-        <button 
-        type="button" 
+        <button
+        type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('active-tournaments')">
           Join Tournament
         </button>
       </p>
       <p>
-        <button 
-        type="button" 
+        <button
+        type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('active-teams')">
           Active Teams
         </button>
       </p>
       <p>
-        <button 
-        type="button" 
+        <button
+        type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('past-teams')">
           Current and Past Results
@@ -42,13 +42,13 @@ export default {
       return this.$store.state.auth.user;
     },
     teamNameHeader() {
-      return this.$store.state.auth.user.team_name + (this.$store.state.auth.user.team_name.charAt(this.$store.state.auth.user.team_name.length -1) === 's' ? '\'' : '\'s');
-    }
+      return this.$store.state.auth.user.team_name + (this.$store.state.auth.user.team_name.charAt(this.$store.state.auth.user.team_name.length - 1) === 's' ? '\'' : '\'s');
+    },
   },
   methods: {
     routeTo(route) {
       this.$router.push(route);
-    }
+    },
   },
   mounted() {
     if (!this.currentUser) {

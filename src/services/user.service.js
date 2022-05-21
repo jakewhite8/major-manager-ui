@@ -27,20 +27,20 @@ class UserService {
   updateUser(user) {
     return axios.put(`${server.URL}api/v1/update_user`, {
       team_name: user.team_name,
-      email: user.email
-    }, { headers: authHeader() })
+      email: user.email,
+    }, { headers: authHeader() });
   }
 
   updatePlayerData(tournamentId, playerData) {
     return axios.post(`${server.URL}api/v1/upload_player_scores/${tournamentId}`,
-      playerData, { headers:authHeader() })
+      playerData, { headers: authHeader() });
   }
 
   addWinningTeamToTournament(tournamentId, userId) {
     return axios.post(`${server.URL}api/v1/add_winning_team`, {
       tournamentId,
-      userId
-    }, { headers: authHeader() })
+      userId,
+    }, { headers: authHeader() });
   }
 }
 

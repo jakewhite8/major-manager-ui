@@ -119,14 +119,12 @@ export default {
         }
         this.headers = ['Players', 'Score'];
         this.columns = ['last_name', 'score'];
-        
+
         // leaderboardArray is used to easily sort teams by score
         for (const team in this.leaderboardObject) {
-          this.leaderboardArray.push(this.leaderboardObject[team])
+          this.leaderboardArray.push(this.leaderboardObject[team]);
         }
-        this.leaderboardArray.sort((a, b) => {
-          return this.scores[a[0].team_name] - this.scores[b[0].team_name]
-        })
+        this.leaderboardArray.sort((a, b) => this.scores[a[0].team_name] - this.scores[b[0].team_name]);
       }, (error) => {
         this.message = (error.response && error.response.data)
           || error.message

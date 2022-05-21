@@ -44,14 +44,13 @@ export default {
   },
   methods: {
     onClickFunction(id, start_date) {
-      const today = new Date()
-      if (start_date && new Date(start_date) < today ) {
+      const today = new Date();
+      if (start_date && new Date(start_date) < today) {
         // If the tournament has started, take user to leaderboard
         this.$router.push(`/tournament/${id}/leaderboard`);
       } else {
         // If the tournament has not started, take user to a page to edit team
         this.$router.push(`/tournament/${id}/player_selection`);
-        
       }
     },
   },

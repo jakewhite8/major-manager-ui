@@ -13,11 +13,11 @@ import {
   faCog,
 } from '@fortawesome/free-solid-svg-icons';
 
+import vSelect from 'vue-select';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import titleComponent from './components/WebsiteTitle.vue';
-import vSelect from 'vue-select';
 
 
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faCog);

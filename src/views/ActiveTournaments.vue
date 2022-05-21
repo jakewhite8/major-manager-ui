@@ -41,7 +41,7 @@ export default {
     },
   },
   mounted() {
-    this.loading = true
+    this.loading = true;
     TournamentService.getUpcomingTournaments().then(
       (response) => {
         this.tournaments = response.data;

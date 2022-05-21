@@ -170,7 +170,7 @@
                     </v-select>
                     <div class="row select-tournament-error-style">
                       <div v-if="winningTeamSelectionError" class="col-12 alert-danger error-admin-page">
-                        {{this.winningTeamSelectionErrorMessage}} 
+                        {{this.winningTeamSelectionErrorMessage}}
                       </div>
                     </div>
                   </div>
@@ -260,8 +260,8 @@ export default {
         this.playerDataMessage = (error.response && error.response.data)
           || error.message
           || error.toString();
-      }
-    )
+      },
+    );
     TournamentService.getConcludedTournaments().then(
       (response) => {
         this.arrayOfConcludedTournaments = response.data;
@@ -270,8 +270,8 @@ export default {
         this.concludedTournamentMessage = (error.response && error.response.data)
           || error.message
           || error.toString();
-      }
-    )
+      },
+    );
   },
   methods: {
     checkForCreateTournamentErrors() {
@@ -283,8 +283,8 @@ export default {
       } else {
         this.tournamentNameError = false;
       }
-      let dateTimeRegex = RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}');
-      if (dateTimeRegex.test(this.newTournament.start_date) ) {
+      const dateTimeRegex = RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}');
+      if (dateTimeRegex.test(this.newTournament.start_date)) {
         this.tournamentDateError = false;
       } else {
         this.tournamentDateError = true;
@@ -295,7 +295,7 @@ export default {
       this.submitted = true;
       this.checkForCreateTournamentErrors();
 
-      if(!this.tournamentNameError && !this.tournamentDateError) {
+      if (!this.tournamentNameError && !this.tournamentDateError) {
         TournamentService.createTournament(this.newTournament).then((response) => {
           this.newTournament = new Tournament('', null, '');
           this.message = 'Tournament Created';
@@ -303,8 +303,8 @@ export default {
           this.submitted = false;
           this.loadingCreateTournament = false;
         }, (error) => {
-          this.message = typeof error.message == 'string' ? error.message : 'Error Creating Team' ;
-          this.successful = false
+          this.message = typeof error.message === 'string' ? error.message : 'Error Creating Team';
+          this.successful = false;
           this.loadingCreateTournament = false;
         });
       }
@@ -353,7 +353,7 @@ export default {
         //   ]
         // }
         try {
-          const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`)
+          const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`);
 
           UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest).then(
             (response) => {
@@ -365,16 +365,15 @@ export default {
               this.loadingPlayerData = false;
             }, (error) => {
               this.playerDataSuccessful = false;
-              this.playerDataMessage = typeof error.message == 'string' ? error.message : 'Tournament Failed to Update';
+              this.playerDataMessage = typeof error.message === 'string' ? error.message : 'Tournament Failed to Update';
               this.loadingPlayerData = false;
-            }
-          )
-        } catch(error) {
+            },
+          );
+        } catch (error) {
           this.playerDataSuccessful = false;
-          this.playerDataMessage = typeof error.message == 'string' ? error.message : 'Player Data Syntax May Be Incorrect';
+          this.playerDataMessage = typeof error.message === 'string' ? error.message : 'Player Data Syntax May Be Incorrect';
           this.loadingPlayerData = false;
         }
-        
       }
       this.loadingPlayerData = false;
     },
@@ -387,23 +386,23 @@ export default {
       this.winningTournamentSelectionErrorMessage = '';
       // Make sure no TEAM is selected now that the tournament has been changed
       this.selectedAddWinnerTeam = '';
-      
+
       // Tournament has been changed
       // Populate dropdown with teams that participated in tournament
       if (this.selectedAddWinnerTournament) {
         TournamentService.getTeamsInATournament(this.selectedAddWinnerTournament.id).then(
           (response) => {
-            this.arrayOfTeamsInATournament = response.data
+            this.arrayOfTeamsInATournament = response.data;
           },
           (error) => {
-            let errorMessage = (error.response && error.response.data)
+            const errorMessage = (error.response && error.response.data)
               || error.message
               || error.toString()
               || 'Error Retrieving Tournament Information';
             this.winningTournamentSelectionErrorMessage = errorMessage;
             this.winningTournamentSelectionError = true;
-          }
-        )
+          },
+        );
       }
     },
     addWinningTeamSelectOnChange() {
@@ -422,10 +421,10 @@ export default {
 
             this.loadingAddWinningTeam = false;
           }, (error) => {
-            this.concludedTournamentMessage = typeof error.message == 'string' ? error.message : 'Winning Team Failed to be set';
+            this.concludedTournamentMessage = typeof error.message === 'string' ? error.message : 'Winning Team Failed to be set';
             this.loadingAddWinningTeam = false;
-          }
-        )
+          },
+        );
       } else {
         // No Team selected
         if (!this.selectedAddWinnerTeam || !this.selectedAddWinnerTeam.id) {
@@ -435,12 +434,12 @@ export default {
         // No Tournament selected
         if (!this.selectedAddWinnerTournament || !this.selectedAddWinnerTournament.id) {
           this.winningTournamentSelectionError = true;
-          this.winningTournamentSelectionErrorMessage = 'Select A Tournament'
+          this.winningTournamentSelectionErrorMessage = 'Select A Tournament';
         }
         this.loadingAddWinningTeam = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

@@ -169,8 +169,8 @@ export default {
       successful: false,
       message: '',
       loading: false,
-      submitted: false
-    }
+      submitted: false,
+    };
   },
   computed: {
     currentUser() {
@@ -197,19 +197,18 @@ export default {
                 this.changeTeamName = false;
                 this.changeEmail = false;
                 this.changePassword = false;
-                for (let prop in this.currentUser) {
+                for (const prop in this.currentUser) {
                   this.originalCurrentUser[prop] = this.currentUser[prop];
                 }
                 this.loading = false;
               }, (error) => {
                 this.successful = false;
-                this.message = 'Update Unsuccessful'
+                this.message = 'Update Unsuccessful';
                 this.loading = false;
-              }
-            )
-
+              },
+            );
           }
-        })
+        });
       }
       this.loading = false;
     },
@@ -226,20 +225,20 @@ export default {
           } else {
             this.changeTeamName = false;
           }
-          break
+          break;
         case 'email':
           if (this.currentUser.email != this.originalCurrentUser.email) {
             this.changeEmail = true;
           } else {
             this.changeEmail = false;
           }
-          break
+          break;
       }
-    }
+    },
   },
   mounted() {
     // Need deep copy of the current user
-    for (let prop in this.$store.state.auth.user) {
+    for (const prop in this.$store.state.auth.user) {
       this.originalCurrentUser[prop] = this.$store.state.auth.user[prop];
     }
   },
