@@ -1,3 +1,4 @@
+/* eslint camelcase: "off" */
 export default class Tournament {
   constructor(name, id, start_date) {
     this.name = name;
