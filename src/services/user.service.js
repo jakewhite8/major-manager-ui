@@ -5,8 +5,7 @@ import server from './serverURL';
 const API_URL = `${server.URL}api/test/`;
 
 
-/* eslint class-methods-use-this: ["error", { "exceptMethods":
-['getPublicContent', 'getUserPage', 'getModeratorPage', 'getAdminPage'] }] */
+/* eslint class-methods-use-this: [0, { "enforceForClassFields": false }] */
 class UserService {
   getPublicContent() {
     return axios.get(`${API_URL}all`);

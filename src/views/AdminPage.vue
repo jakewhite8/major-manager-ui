@@ -7,9 +7,21 @@
       <div class="row no-gutters row-bordered row-border-light">
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
-            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#create-tournament">Create Tournament</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#add-players">Add Players</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#add-winner">Add Winning Team</a>
+            <a class="list-group-item list-group-item-action active"
+                data-toggle="list"
+                href="#create-tournament">
+              Create Tournament
+            </a>
+            <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#add-players">
+              Add Players
+            </a>
+            <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#add-winner">
+              Add Winning Team
+            </a>
           </div>
         </div>
         <div class="col-md-9">
@@ -25,7 +37,8 @@
                     @change="checkForCreateTournamentErrors()"
                     class="form-control"
                     name="tournament_name">
-                  <div v-if="submitted && tournamentNameError" class="alert-danger error-admin-page">
+                  <div v-if="submitted && tournamentNameError"
+                        class="alert-danger error-admin-page">
                     Name is required and needs to be between 3 and 40 characters
                   </div>
                 </div>
@@ -37,7 +50,8 @@
                     @change="checkForCreateTournamentErrors()"
                     class="form-control"
                     name="tournament_date">
-                  <div v-if="submitted && tournamentDateError" class="alert-danger error-admin-page">
+                  <div v-if="submitted && tournamentDateError"
+                        class="alert-danger error-admin-page">
                     Date is required
                   </div>
                 </div>
@@ -48,7 +62,9 @@
                     v-on:click="createTournament()"
                     class="btn btn-primary-dark-blue">
                     <span>Create Tournament</span>
-                    <span v-show="loadingCreateTournament" class="spinner-border spinner-border-sm"></span>
+                    <span v-show="loadingCreateTournament"
+                        class="spinner-border spinner-border-sm">
+                    </span>
                   </button>
                   <div
                     v-if="message"
@@ -74,7 +90,8 @@
                         v-on:click="updatePlayerData()"
                         class="btn btn-primary-dark-blue">
                         <span>Add Data</span>
-                        <span v-show="loadingPlayerData" class="spinner-border spinner-border-sm"></span>
+                        <span v-show="loadingPlayerData" class="spinner-border spinner-border-sm">
+                        </span>
                       </button>
                     </div>
                   </div>
@@ -86,7 +103,8 @@
                     v-model="selectedTournament"
                     ></v-select>
                     <div class="row select-tournament-error-style">
-                      <div v-if="playerTournamentNameSectionError" class="col-12 alert-danger error-admin-page">
+                      <div v-if="playerTournamentNameSectionError"
+                            class="col-12 alert-danger error-admin-page">
                         Select a Tournament
                       </div>
                     </div>
@@ -103,7 +121,8 @@
                         class="alert-player-data-section">
                         {{this.playerDataMessage}}
                       </div>
-                      <div v-if="playerDataSectionError" class="alert-danger alert-player-data-section">
+                      <div v-if="playerDataSectionError"
+                            class="alert-danger alert-player-data-section">
                         Player data cannot be empty
                       </div>
                     </div>
@@ -112,7 +131,9 @@
                     v-model="playerData"
                     class="form-control"
                     rows="150"
-                    placeholder="Entries should be a JSON object for each player, seperated by a comma, with the fields: 'first_name', 'last_name', 'score', 'tier' (optional), and 'position' (optional). No comma after the last player. "
+                    placeholder="Entries should be a JSON object for each player, seperated by a
+                     comma, with the fields: 'first_name', 'last_name', 'score', 'tier' (optional),
+                      and 'position' (optional). No comma after the last player. "
                     @change="checkForPlayerDataErrors()"
                     name="player_data">
                   </textarea>
@@ -125,7 +146,9 @@
                 <div class="form-group">
                   <div class="row tournament-select-row">
                     <div class="col-6">
-                      <label class="form-label" for="select_winner_tournament">Select Tournament</label>
+                      <label class="form-label" for="select_winner_tournament">
+                        Select Tournament
+                      </label>
                     </div>
                     <div class="col-6 text-right">
                       <div
@@ -134,7 +157,8 @@
                         class="alert-player-data-section">
                         {{this.concludedTournamentMessage}}
                       </div>
-                      <div v-if="playerDataSectionError" class="alert-danger alert-player-data-section">
+                      <div v-if="playerDataSectionError"
+                          class="alert-danger alert-player-data-section">
                         Player data cannot be empty
                       </div>
                     </div>
@@ -148,7 +172,8 @@
                     >
                   </v-select>
                   <div class="row select-tournament-error-style">
-                    <div v-if="winningTournamentSelectionError" class="col-12 alert-danger error-admin-page">
+                    <div v-if="winningTournamentSelectionError"
+                          class="col-12 alert-danger error-admin-page">
                       {{this.winningTournamentSelectionErrorMessage}}
                     </div>
                   </div>
@@ -169,7 +194,8 @@
                       >
                     </v-select>
                     <div class="row select-tournament-error-style">
-                      <div v-if="winningTeamSelectionError" class="col-12 alert-danger error-admin-page">
+                      <div v-if="winningTeamSelectionError"
+                            class="col-12 alert-danger error-admin-page">
                         {{this.winningTeamSelectionErrorMessage}}
                       </div>
                     </div>
@@ -181,7 +207,9 @@
                       v-on:click="addWinningTeam()"
                       class="btn btn-primary-dark-blue">
                       <span>Add Winning Team</span>
-                      <span v-show="loadingAddWinningTeam" class="spinner-border spinner-border-sm"></span>
+                      <span v-show="loadingAddWinningTeam"
+                          class="spinner-border spinner-border-sm">
+                      </span>
                     </button>
                     <div
                       v-if="messageWinningTeam"
@@ -365,13 +393,15 @@ export default {
               this.loadingPlayerData = false;
             }, (error) => {
               this.playerDataSuccessful = false;
-              this.playerDataMessage = typeof error.message === 'string' ? error.message : 'Tournament Failed to Update';
+              this.playerDataMessage = typeof error.message === 'string'
+                ? error.message : 'Tournament Failed to Update';
               this.loadingPlayerData = false;
             },
           );
         } catch (error) {
           this.playerDataSuccessful = false;
-          this.playerDataMessage = typeof error.message === 'string' ? error.message : 'Player Data Syntax May Be Incorrect';
+          this.playerDataMessage = typeof error.message === 'string'
+            ? error.message : 'Player Data Syntax May Be Incorrect';
           this.loadingPlayerData = false;
         }
       }
@@ -413,15 +443,18 @@ export default {
     addWinningTeam() {
       this.loadingAddWinningTeam = true;
 
-      if (this.selectedAddWinnerTournament && this.selectedAddWinnerTournament.id && this.selectedAddWinnerTeam && this.selectedAddWinnerTeam.id) {
-        UserService.addWinningTeamToTournament(this.selectedAddWinnerTournament.id, this.selectedAddWinnerTeam.id).then(
+      if (this.selectedAddWinnerTournament && this.selectedAddWinnerTournament.id
+              && this.selectedAddWinnerTeam && this.selectedAddWinnerTeam.id) {
+        UserService.addWinningTeamToTournament(this.selectedAddWinnerTournament.id,
+          this.selectedAddWinnerTeam.id).then(
           (response) => {
             this.messageWinningTeam = 'Update Successful';
             this.successfulWinningTeam = true;
 
             this.loadingAddWinningTeam = false;
           }, (error) => {
-            this.concludedTournamentMessage = typeof error.message === 'string' ? error.message : 'Winning Team Failed to be set';
+            this.concludedTournamentMessage = typeof error.message === 'string'
+              ? error.message : 'Winning Team Failed to be set';
             this.loadingAddWinningTeam = false;
           },
         );

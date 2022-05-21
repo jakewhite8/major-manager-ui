@@ -13,9 +13,21 @@
       <div class="row no-gutters row-bordered row-border-light">
         <div class="col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
-            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
-            <!-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a> -->
-            <!-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a> -->
+            <a class="list-group-item list-group-item-action active"
+                data-toggle="list"
+                href="#account-general">
+              General
+            </a>
+            <!-- <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#account-change-password">
+              Change password
+            </a> -->
+            <!-- <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#account-notifications">
+              Notifications
+            </a> -->
           </div>
         </div>
         <div class="col-md-9">
@@ -79,7 +91,9 @@
                       <span class="switcher-yes"></span>
                       <span class="switcher-no"></span>
                     </span>
-                    <span class="switcher-label">Email me when someone comments on my article</span>
+                    <span class="switcher-label">
+                      Email me when someone comments on my article
+                    </span>
                   </label>
                 </div>
                 <div class="form-group">
@@ -89,7 +103,9 @@
                       <span class="switcher-yes"></span>
                       <span class="switcher-no"></span>
                     </span>
-                    <span class="switcher-label">Email me when someone answers on my forum thread</span>
+                    <span class="switcher-label">
+                      Email me when someone answers on my forum thread
+                    </span>
                   </label>
                 </div>
                 <div class="form-group">

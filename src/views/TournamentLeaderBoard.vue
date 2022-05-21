@@ -134,7 +134,8 @@ export default {
   },
   computed: {
     teamName() {
-      return this.user.team_name + (this.user.team_name.charAt(this.user.team_name.length - 1) === 's' ? '\'' : '\'s');
+      return this.user.team_name
+        + (this.user.team_name.charAt(this.user.team_name.length - 1) === 's' ? '\'' : '\'s');
     },
   },
   methods: {
