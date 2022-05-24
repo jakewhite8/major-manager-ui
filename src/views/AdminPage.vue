@@ -131,9 +131,7 @@
                     v-model="playerData"
                     class="form-control"
                     rows="150"
-                    placeholder="Entries should be a JSON object for each player, seperated by a
-                     comma, with the fields: 'first_name', 'last_name', 'score', 'tier' (optional),
-                      and 'position' (optional). No comma after the last player. "
+                    placeholder="Entries should be a JSON object for each player, seperated / by a comma, with the fields: 'first_name', 'last_name', 'score', 'tier' (optional), and 'position' (optional). No comma after the last player. "
                     @change="checkForPlayerDataErrors()"
                     name="player_data">
                   </textarea>
