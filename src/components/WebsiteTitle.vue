@@ -9,6 +9,8 @@ export default {
         document.title = this.title;
       },
     },
-  }
+  },
+  render() {
+  },
 };
 </script>
