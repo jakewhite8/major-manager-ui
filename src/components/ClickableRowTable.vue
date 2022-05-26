@@ -20,6 +20,11 @@
               <span v-if="column.indexOf('date') > -1">
                 {{ new Date(data[column]).toString() }}
               </span>
+              <span v-if="column.indexOf('cut') > -1">
+                <span v-if="data[column]">
+                  Player did not make the cut
+                </span>
+              </span>
               <span v-else>{{ data[column] }}</span>
             </td>
         </tr>

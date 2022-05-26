@@ -117,8 +117,8 @@ export default {
         if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
           this.currentUserTeam = this.leaderboardObject[this.user.team_name];
         }
-        this.headers = ['Players', 'Score'];
-        this.columns = ['last_name', 'score'];
+        this.headers = ['Players', 'Cut', 'Score'];
+        this.columns = ['last_name', 'cut', 'score'];
 
         // leaderboardArray is used to easily sort teams by score
         for (const team in this.leaderboardObject) {
