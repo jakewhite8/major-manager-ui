@@ -22,8 +22,11 @@
               </span>
               <span v-if="column.indexOf('cut') > -1">
                 <span v-if="data[column]">
-                  Player did not make the cut
+                  <font-awesome-icon class="cutFail" icon="times" />
                 </span>
+                <span v-else>
+                  <font-awesome-icon class="cutSuccess" icon="check" />
+                </span>  
               </span>
               <span v-else>{{ data[column] }}</span>
             </td>
@@ -56,5 +59,11 @@ tr.clickableRow:hover {
 tr.selectedBackground {
   background-color: #343a40;
   color: rgba(255,255,255,.75);
+}
+.cutSuccess {
+  color: green;
+}
+.cutFail {
+  color: red;
 }
 </style>
