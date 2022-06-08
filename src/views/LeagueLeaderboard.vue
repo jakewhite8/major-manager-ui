@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>League Leaderboard</h3>
+      <h3>Total First Place Finishes</h3>
     </header>
     <div class="container">
       <div v-if="!errorMessage">
