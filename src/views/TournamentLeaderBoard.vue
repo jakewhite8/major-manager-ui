@@ -21,7 +21,6 @@
           :rowData=currentUserTeam
           :headers=headers
           :columns=columns
-          :onClickFunction=onClickFunction
         />
       </div>
     </div>
@@ -60,7 +59,6 @@
                   :rowData=team
                   :headers=headers
                   :columns=columns
-                  :onClickFunction=onClickFunction
                 />
               </div>
             </div>
@@ -136,11 +134,6 @@ export default {
     teamName() {
       return this.user.team_name
         + (this.user.team_name.charAt(this.user.team_name.length - 1) === 's' ? '\'' : '\'s');
-    },
-  },
-  methods: {
-    onClickFunction(id) {
-      console.log(id);
     },
   },
 };

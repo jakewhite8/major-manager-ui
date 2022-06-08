@@ -13,7 +13,7 @@
       <tbody>
         <tr v-for="data in rowData"
           :key="data.id"
-          v-on:click="onClickFunction(data.id, data['start_date'] ? data['start_date'] : false)"
+          v-on:click="onClickFunction ? onClickFunction(data.id, data['start_date'] ? data['start_date'] : false): true"
           class="clickableRow"
           v-bind:class="[(data.selected) ? 'selectedBackground' : '']">
             <td v-for="column in columns" :key="column">
@@ -47,7 +47,9 @@ module.exports = {
     columns: {
       required: true,
     },
-    onClickFunction: {},
+    onClickFunction: {
+      required: false,
+    },
   },
 };
 </script>
