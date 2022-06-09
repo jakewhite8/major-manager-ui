@@ -237,7 +237,7 @@ export default {
   data() {
     return {
       content: '',
-      newTournament: new Tournament('', null, ''),
+      newTournament: new Tournament('', null, '', null),
       tournamentNameError: false,
       tournamentDateError: false,
       submitted: false,
@@ -323,7 +323,7 @@ export default {
 
       if (!this.tournamentNameError && !this.tournamentDateError) {
         TournamentService.createTournament(this.newTournament).then((response) => {
-          this.newTournament = new Tournament('', null, '');
+          this.newTournament = new Tournament('', null, '', null);
           this.message = 'Tournament Created';
           this.successful = true;
           this.submitted = false;

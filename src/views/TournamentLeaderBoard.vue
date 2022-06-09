@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       content: 'Leaderboard',
-      tournament: new Tournament('', null, ''),
+      tournament: new Tournament('', null, '', null),
       user: new User('', '', ''),
       currentUserTeam: [],
       leaderboardObject: {},
@@ -107,7 +107,8 @@ export default {
 
     TournamentService.getLeaderboardData(this.tournament.id).then(
       (response) => {
-        this.tournament.name = response.data.tournamentName.name;
+        this.tournament.name = response.data.tournament.name;
+        this.tournament.round = response.data.tournament.round;
         // May be able to remove the leaderboardObject
         // in favor of the leaderboardArray
         this.leaderboardObject = response.data.leaderboard;

@@ -50,7 +50,7 @@ export default {
         this.$router.push(`/tournament/${id}/leaderboard`);
       } else {
         // If the tournament has not started, take user to a page to edit team
-        this.$router.push(`/tournament/${id}/player_selection`);
+        this.$router.push(`/tournament/${id}/player-selection`);
       }
     },
   },
