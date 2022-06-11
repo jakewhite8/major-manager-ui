@@ -25,9 +25,18 @@
       </div>
     </div>
     <div class="container leaderboard">
-      <h5>
-        Leaderboard
-      </h5>
+      <div class="row">
+        <div class="col-6">
+          <h5>
+            Leaderboard
+          </h5>
+        </div>
+        <div class="col-6 text-right">
+          <h5>
+            Round: {{ tournament.round }}
+          </h5>
+        </div>
+      </div>
       <div>
         <div v-for="(team) in this.leaderboardArray"
           id="accordion"
