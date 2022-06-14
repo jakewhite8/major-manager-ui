@@ -110,6 +110,20 @@
                     </div>
                 </div>
                 <div class="form-group">
+                  <div class="row tournament-select-row">
+                    <div class="col-6">
+                      <label class="form-label" for="select_round">Round</label>
+                    </div>
+                  </div>
+                  <v-select
+                    name="select_round"
+                    :options="['0',1,2,3,4]"
+                    label="select_round"
+                    @input="checkForPlayerDataErrors"
+                    v-model="selectedRound"
+                    ></v-select>
+                </div>
+                <div class="form-group">
                   <div class="row">
                     <div class="col-6">
                       <label class="form-label" for="player_data">Player data</label>
@@ -255,6 +269,7 @@ export default {
       arrayOfConcludedTournaments: [],
       arrayOfTeamsInATournament: [],
       selectedTournament: null,
+      selectedRound: null,
       selectedAddWinnerTournament: null,
       selectedAddWinnerTeam: null,
       playerTournamentNameSectionError: false,
