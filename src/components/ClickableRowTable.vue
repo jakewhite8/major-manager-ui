@@ -18,9 +18,9 @@
           v-bind:class="[(data.selected) ? 'selectedBackground' : '']">
             <td v-for="column in columns" :key="column">
               <span v-if="column.indexOf('date') > -1">
-                {{ new Date(data[column]).toString() }}
+                {{ createDateString(new Date(data[column])) }}
               </span>
-              <span v-if="column.indexOf('cut') > -1">
+              <span v-else-if="column.indexOf('cut') > -1">
                 <span v-if="data[column]">
                   <font-awesome-icon class="cutFail" icon="times" />
                 </span>
@@ -51,6 +51,17 @@ module.exports = {
       required: false,
     },
   },
+  methods: {
+    createDateString: function (date) {
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      const month = date.getUTCMonth();
+      const day = date.getUTCDate();
+      const year = date.getUTCFullYear()
+      return monthNames[month] + ' ' + day + ', ' + year
+    }
+  }
 };
 </script>
 
