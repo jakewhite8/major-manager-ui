@@ -25,13 +25,23 @@
       </div>
     </div>
     <div class="container leaderboard">
-      <div class="row">
-        <div class="col-6">
+      <div class="row leaderboardTitleRow">
+        <div class="col-4">
           <h5>
             Leaderboard
           </h5>
         </div>
-        <div class="col-6 text-right">
+        <div class="col-4 text-center">
+          <button
+            type="button"
+            class="btn btn-link btn-sm accordionClass"
+            data-toggle="collapse"
+            data-target=".multi-collapse"
+            aria-expanded="false">
+            <span>Show/Hide Teams</span>
+          </button>
+        </div>
+        <div class="col-4 text-right">
           <h5>
             Round: {{ tournament.round }}
           </h5>
@@ -40,6 +50,7 @@
       <div>
         <div v-for="(team) in this.leaderboardArray"
           id="accordion"
+          class="accordionClass" 
           :key="team[0].team_name">
           <div class="card">
             <div class="card-header container" :id="'heading-'+team[0].team_name">
@@ -60,9 +71,10 @@
             </div>
             <div
               :id="'collapsing' + team[0].team_name.split(' ').join('')"
-              class="collapse"
+              class="collapse multi-collapse"
               :aria-labelledby="'heading-'+team[0].team_name"
-              data-parent="#accordion">
+              data-parent=".accordionClass"
+              >
               <div class="card-body container">
                 <ClickableRowTable
                   :rowData=team
@@ -160,5 +172,8 @@ div.card-header:hover {
 }
 div.leaderboard {
   margin-bottom: 100px;
+}
+div.leaderboardTitleRow {
+  margin: 10px 0; 
 }
 </style>
