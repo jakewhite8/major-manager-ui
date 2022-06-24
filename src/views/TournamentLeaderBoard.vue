@@ -26,8 +26,8 @@
     </div>
     <div class="container leaderboard">
       <div class="row leaderboardTitleRow">
-        <div class="col-4">
-          <h5>
+        <div class="col-4 leaderboardTitleContainer">
+          <h5 class="leaderboardTitleHeader">
             Leaderboard
           </h5>
         </div>
@@ -41,8 +41,8 @@
             <span>Show/Hide Teams</span>
           </button>
         </div>
-        <div class="col-4 text-right">
-          <h5>
+        <div class="col-4 text-right leaderboardTitleContainer">
+          <h5 class="leaderboardTitleHeader alignHeaderRight">
             Round: {{ tournament.round }}
           </h5>
         </div>
@@ -175,5 +175,18 @@ div.leaderboard {
 }
 div.leaderboardTitleRow {
   margin: 10px 0; 
+}
+div.leaderboardTitleRow div.leaderboardTitleContainer {
+  position: relative;
+}
+div.leaderboardTitleRow div.leaderboardTitleContainer h5.leaderboardTitleHeader {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+h5.leaderboardTitleHeader.alignHeaderRight {
+  right: 15px;
 }
 </style>
