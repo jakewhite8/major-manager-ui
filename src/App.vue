@@ -4,7 +4,12 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/home" class="nav-link">
+          <router-link
+              to="/home"
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              data-placement="bottom"
+              title="Home">
             <font-awesome-icon icon="home" />
           </router-link>
         </li>
@@ -26,30 +31,58 @@
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <router-link to="/register" class="nav-link">
+          <router-link
+              to="/register"
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              data-placement="bottom"
+              title="Register">
             <font-awesome-icon icon="user-plus" />Sign Up
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/login" id="nav-bar-login-button" class="nav-link">
+          <router-link
+              to="/login"
+              id="nav-bar-login-button"
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              data-placement="bottom"
+              title="Login">
             <font-awesome-icon icon="sign-in-alt" />Login
           </router-link>
         </li>
       </div>
 
       <div v-if="currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
+        <li class="nav-item"
+            data-bs-toggle="tooltip"
+            data-bs-title="Profile">
+          <router-link
+              to="/profile"
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              data-placement="bottom"
+              title="Profile">
             <font-awesome-icon icon="user" />
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/settings" class="nav-link">
-            <font-awesome-icon icon="cog" />
+          <router-link
+              to="/settings"
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              data-placement="bottom"
+              title="Settings">
+            <font-awesome-icon icon="cog"/>
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href @click.prevent="logOut">
+          <a
+            class="nav-link"
+            href @click.prevent="logOut"
+            data-bs-toggle="tooltip"
+            data-placement="bottom"
+            title="Logout">
             <font-awesome-icon icon="sign-out-alt" />
           </a>
         </li>
@@ -63,6 +96,12 @@
 </template>
 
 <script>
+
+import { Tooltip } from "bootstrap";
+new Tooltip(document.body, {
+  selector: "[data-bs-toggle='tooltip']",
+});
+
 export default {
   computed: {
     currentUser() {
