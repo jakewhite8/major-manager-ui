@@ -45,6 +45,13 @@
         </div>
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+          <div v-if="invalidPassword">
+            <router-link
+                to="/forgot-password"
+                class="nav-link">
+              Forgot Password?
+            </router-link>
+          </div>
         </div>
       </form>
     </div>
@@ -61,6 +68,7 @@ export default {
       user: new User('', ''),
       loading: false,
       message: '',
+      invalidPassword: false,
     };
   },
   computed: {
@@ -91,6 +99,11 @@ export default {
               this.message = (error.response && error.response.data && error.response.data.message)
                 || error.message
                 || error.toString();
+              if (this.message === 'Invalid Password') {
+                this.invalidPassword = true;
+              } else {
+                this.invalidPassword = false;
+              }
             },
           );
         }
