@@ -37,8 +37,14 @@
             class="btn btn-link btn-sm accordionClass"
             data-toggle="collapse"
             data-target=".multi-collapse"
-            aria-expanded="false">
-            <span>Show/Hide Teams</span>
+            aria-expanded="false"
+            v-on:click="toggleButtonIcon">
+              <font-awesome-icon
+                v-if="this.hiddenStatus"
+                icon="eye"/>
+              <font-awesome-icon
+                v-if="!this.hiddenStatus"
+                icon="eye-slash"/>
           </button>
         </div>
         <div class="col-4 text-right leaderboardTitleContainer">
@@ -115,6 +121,7 @@ export default {
       scores: {},
       headers: null,
       columns: null,
+      hiddenStatus: true,
     };
   },
   components: {
@@ -157,6 +164,11 @@ export default {
           || error.toString();
       },
     );
+  },
+  methods: {
+    toggleButtonIcon() {
+      this.hiddenStatus = !this.hiddenStatus;
+    },
   },
   computed: {
     teamName() {
