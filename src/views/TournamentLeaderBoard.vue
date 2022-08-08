@@ -12,7 +12,7 @@
         </div>
         <div class="col-6 text-right">
           <h5>
-            Total Score: {{ this.scores[this.user.team_name] }}
+            Total Score: {{ this.scores[this.user.team_name].score }}
           </h5>
         </div>
       </div>
@@ -68,10 +68,10 @@
                 :aria-controls="'collapsing' + team[0].team_name.split(' ').join('')"
                 class="row">
                 <div class="col-6">
-                  {{ team[0].team_name }}
+                  {{ scores[team[0].team_name].position }}) {{ team[0].team_name }}
                 </div>
                 <div class="col-6 text-right">
-                  {{ scores[team[0].team_name] }}
+                  {{ scores[team[0].team_name].score }}
                 </div>
               </div>
             </div>
@@ -140,6 +140,7 @@ export default {
         // May be able to remove the leaderboardObject
         // in favor of the leaderboardArray
         this.leaderboardObject = response.data.leaderboard;
+        this.leaderboardArray = response.data.leaderboardArray
         this.scores = response.data.scoresByTeam;
         if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
           this.currentUserTeam = this.leaderboardObject[this.user.team_name];
@@ -152,12 +153,6 @@ export default {
           this.headers = ['Players', 'Score'];
           this.columns = ['last_name', 'score'];
         }
-
-        // leaderboardArray is used to easily sort teams by score
-        for (const team in this.leaderboardObject) {
-          this.leaderboardArray.push(this.leaderboardObject[team]);
-        }
-        this.leaderboardArray.sort((a, b) => this.scores[a[0].team_name] - this.scores[b[0].team_name]);
       }, (error) => {
         this.message = (error.response && error.response.data)
           || error.message
