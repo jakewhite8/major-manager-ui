@@ -4,7 +4,7 @@ import Home from '@/views/Home.vue';
 
 describe('Home.vue', () => {
   it('renders data when passed', () => {
-    const content = 'new messssage';
+    const content = 'Gambling Problem?';
     const wrapper = shallowMount(Home, {
       data() {
         return { content };
