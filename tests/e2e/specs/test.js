@@ -7,8 +7,7 @@ module.exports = {
       .init()
       .waitForElementVisible('#app')
       .assert.elementPresent('.navbar')
-      .assert.containsText('#nav-bar-login-button', 'Login')
-      .assert.elementCount('img', 1)
+      .assert.elementCount('#nav-bar-login-button svg', 1)
       .end();
   },
 

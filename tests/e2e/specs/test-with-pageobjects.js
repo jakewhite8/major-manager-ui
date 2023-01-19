@@ -14,7 +14,7 @@ module.exports = {
     homepage.waitForElementVisible('@appContainer');
 
     const { app } = homepage.section;
-    app.assert.elementCount('@logo', 1);
+    app.assert.elementCount('.fa-home', 1);
     app.expect.section('@navbar').to.be.visible;
     app.expect.section('@login').to.be.visible;
 

@@ -17,7 +17,7 @@ module.exports = {
     this.init();
     this.waitForElementVisible('#app');
 
-    const result = await this.elements('css selector', '#app img');
+    const result = await this.elements('css selector', '#app .navbar');
     this.assert.strictEqual(result.value.length, 1);
   },
 };
