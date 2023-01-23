@@ -173,7 +173,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 div.card-header:hover {
   cursor: pointer;
 }

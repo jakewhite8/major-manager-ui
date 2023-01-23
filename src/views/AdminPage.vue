@@ -488,7 +488,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
   div.error-admin-page {
     text-align: center;
     padding: 10px 0;
@@ -508,6 +508,23 @@ export default {
   }
   div#add-winner {
     height: 600px;
+  }
+  a.active {
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+    color: rgba(255,255,255,.75) !important;
+    font-weight: bold !important;
+  }
+  a.active:hover {
+    color: white !important;
+  }
+  button.btn-primary-dark-blue {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: rgba(255,255,255,.75);
+  }
+  button.btn-primary-dark-blue:hover {
+    color: white;
   }
 
 </style>

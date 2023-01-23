@@ -57,7 +57,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
   .profile-buttons button {
     background-color: #343a40;
     color: rgba(255,255,255,.75);

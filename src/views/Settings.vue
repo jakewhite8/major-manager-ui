@@ -259,7 +259,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
   a.active {
     background-color: #343a40 !important;
     border-color: #343a40 !important;
