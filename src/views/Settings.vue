@@ -11,7 +11,7 @@
         {{message}}
       </div>
       <div class="row no-gutters row-bordered row-border-light">
-        <div class="col-md-3 pt-0">
+        <div class="col-12 col-md-3 pt-0">
           <div class="list-group list-group-flush account-settings-links settings-sidebar">
             <a class="list-group-item list-group-item-action active"
                 data-toggle="list"
@@ -30,7 +30,7 @@
             </a> -->
           </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-12 col-md-9">
           <div class="tab-content">
             <div class="tab-pane fade active show" id="account-general">
               <hr class="border-light m-0">
