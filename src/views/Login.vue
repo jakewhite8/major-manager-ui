@@ -11,13 +11,13 @@
           <label for="email">Email</label>
           <input
             v-model="user.email"
-            v-validate="'required'"
+            v-validate="'required|email'"
             type="text"
             class="form-control"
             name="email"
           />
           <div
-            v-if="errors.has('email')"
+            v-if="submitted && errors.has('email')"
             class="alert alert-danger"
             role="alert"
           >Email is required!</div>
@@ -32,7 +32,7 @@
             name="password"
           />
           <div
-            v-if="errors.has('password')"
+            v-if="submitted && errors.has('password')"
             class="alert alert-danger"
             role="alert"
           >Password is required!</div>
@@ -69,6 +69,7 @@ export default {
       loading: false,
       message: '',
       invalidPassword: false,
+      submitted: false
     };
   },
   computed: {
@@ -84,6 +85,7 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true;
+      this.submitted = true;
       this.$validator.validateAll().then((isValid) => {
         if (!isValid) {
           this.loading = false;

@@ -19,7 +19,7 @@
             />
             <div
               v-if="submitted && errors.has('team_name')"
-              class="alert-danger"
+              class="alert alert-danger"
             >{{errors.first('team_name')}}</div>
           </div>
           <div class="form-group">
@@ -27,13 +27,12 @@
             <input
               v-model="user.email"
               v-validate="'required|email|max:50'"
-              type="email"
               class="form-control"
               name="email"
             />
             <div
               v-if="submitted && errors.has('email')"
-              class="alert-danger"
+              class="alert alert-danger"
             >{{errors.first('email')}}</div>
           </div>
           <div class="form-group">
@@ -48,7 +47,7 @@
             />
             <div
               v-if="submitted && errors.has('password')"
-              class="alert-danger"
+              class="alert alert-danger"
             >{{errors.first('password')}}</div>
           </div>
           <div class="form-group">
@@ -62,7 +61,7 @@
             />
             <div
               v-if="submitted && errors.has('password_confirmation')"
-              class="alert-danger"
+              class="alert alert-danger"
             >{{errors.first('password_confirmation')}}</div>
           </div>
           <div class="form-group">
