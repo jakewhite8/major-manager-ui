@@ -69,7 +69,7 @@ export default {
       loading: false,
       message: '',
       invalidPassword: false,
-      submitted: false
+      submitted: false,
     };
   },
   computed: {

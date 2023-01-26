@@ -13,7 +13,10 @@
       <tbody>
         <tr v-for="data in rowData"
           :key="data.id"
-          v-on:click="onClickFunction ? onClickFunction(data.id, data['start_date'] ? data['start_date'] : false): true"
+          v-on:click="onClickFunction ?
+                        onClickFunction(
+                          data.id, data['start_date'] ? data['start_date'] : false)
+                          : true"
           class="clickableRow"
           v-bind:class="[(data.selected) ? 'selectedBackground' : '']">
             <td v-for="column in columns" :key="column">
@@ -26,7 +29,7 @@
                 </span>
                 <span v-else>
                   <font-awesome-icon class="cutSuccess" icon="check" />
-                </span>  
+                </span>
               </span>
               <span v-else>{{ data[column] }}</span>
             </td>
@@ -52,16 +55,16 @@ module.exports = {
     },
   },
   methods: {
-    createDateString: function (date) {
-      const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+    createDateString(date) {
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December',
       ];
       const month = date.getUTCMonth();
       const day = date.getUTCDate();
-      const year = date.getUTCFullYear()
-      return monthNames[month] + ' ' + day + ', ' + year
-    }
-  }
+      const year = date.getUTCFullYear();
+      return `${monthNames[month]} ${day}, ${year}`;
+    },
+  },
 };
 </script>
 

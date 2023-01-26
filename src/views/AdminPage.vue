@@ -141,6 +141,7 @@
                       </div>
                     </div>
                   </div>
+                  <!-- eslint-disable max-len -->
                   <textarea
                     v-model="playerData"
                     class="form-control"
@@ -149,6 +150,7 @@
                     @change="checkForPlayerDataErrors()"
                     name="player_data">
                   </textarea>
+                  <!-- eslint-enable max-len -->
                 </div>
               </div>
             </div>
@@ -337,7 +339,7 @@ export default {
       this.checkForCreateTournamentErrors();
 
       if (!this.tournamentNameError && !this.tournamentDateError) {
-        TournamentService.createTournament(this.newTournament).then((response) => {
+        TournamentService.createTournament(this.newTournament).then(() => {
           this.newTournament = new Tournament('', null, '', null);
           this.message = 'Tournament Created';
           this.successful = true;
@@ -397,7 +399,7 @@ export default {
           const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`);
 
           UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest).then(
-            (response) => {
+            () => {
               this.playerDataSuccessful = true;
               this.playerDataMessage = 'Tournament Update Successful';
               this.submittedPlayerData = false;
@@ -460,7 +462,7 @@ export default {
               && this.selectedAddWinnerTeam && this.selectedAddWinnerTeam.id) {
         UserService.addWinningTeamToTournament(this.selectedAddWinnerTournament.id,
           this.selectedAddWinnerTeam.id).then(
-          (response) => {
+          () => {
             this.messageWinningTeam = 'Update Successful';
             this.successfulWinningTeam = true;
 

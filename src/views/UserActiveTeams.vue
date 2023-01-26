@@ -43,9 +43,9 @@ export default {
     ClickableRowTable,
   },
   methods: {
-    onClickFunction(id, start_date) {
+    onClickFunction(id, startDate) {
       const today = new Date();
-      if (start_date && new Date(start_date) < today) {
+      if (startDate && new Date(startDate) < today) {
         // If the tournament has started, take user to leaderboard
         this.$router.push(`/tournament/${id}/leaderboard`);
       } else {

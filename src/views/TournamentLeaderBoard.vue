@@ -56,7 +56,7 @@
       <div>
         <div v-for="(team) in this.leaderboardArray"
           id="accordion"
-          class="accordionClass" 
+          class="accordionClass"
           :key="team[0].team_name">
           <div class="card">
             <div class="card-header container" :id="'heading-'+team[0].team_name">
@@ -140,13 +140,13 @@ export default {
         // May be able to remove the leaderboardObject
         // in favor of the leaderboardArray
         this.leaderboardObject = response.data.leaderboard;
-        this.leaderboardArray = response.data.leaderboardArray
+        this.leaderboardArray = response.data.leaderboardArray;
         this.scores = response.data.scoresByTeam;
         if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
           this.currentUserTeam = this.leaderboardObject[this.user.team_name];
         }
         // After the second round, display cut information
-        if (this.tournament.round >= 3){
+        if (this.tournament.round >= 3) {
           this.headers = ['Players', 'Cut', 'Score'];
           this.columns = ['last_name', 'cut', 'score'];
         } else {
@@ -181,7 +181,7 @@ div.leaderboard {
   margin-bottom: 100px;
 }
 div.leaderboardTitleRow {
-  margin: 10px 0; 
+  margin: 10px 0;
 }
 div.leaderboardTitleRow div.leaderboardTitleContainer {
   position: relative;

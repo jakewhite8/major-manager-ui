@@ -218,7 +218,12 @@ export default {
                 this.loading = false;
               }, (error) => {
                 this.successful = false;
-                this.message = 'Update Unsuccessful';
+                /*eslint-disable */
+                this.message = (error.response && error.response.data && error.response.data.message)
+                  || error.message
+                  || error.toString()
+                  || 'Update Unsuccessful';
+                /* eslint-enable */
                 this.loading = false;
               },
             );
