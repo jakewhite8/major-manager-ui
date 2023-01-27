@@ -212,8 +212,9 @@ export default {
                 this.changeTeamName = false;
                 this.changeEmail = false;
                 this.changePassword = false;
-                for (const prop in this.currentUser) {
-                  this.originalCurrentUser[prop] = this.currentUser[prop];
+                const keys = Object.keys(this.currentUser);
+                for (let i = 0; i < keys.length; i += 1) {
+                  this.originalCurrentUser[keys[i]] = this.currentUser[keys[i]];
                 }
                 this.loading = false;
               }, (error) => {
@@ -240,26 +241,29 @@ export default {
 
       switch (field) {
         case 'team_name':
-          if (this.currentUser.team_name != this.originalCurrentUser.team_name) {
+          if (this.currentUser.team_name !== this.originalCurrentUser.team_name) {
             this.changeTeamName = true;
           } else {
             this.changeTeamName = false;
           }
           break;
         case 'email':
-          if (this.currentUser.email != this.originalCurrentUser.email) {
+          if (this.currentUser.email !== this.originalCurrentUser.email) {
             this.changeEmail = true;
           } else {
             this.changeEmail = false;
           }
+          break;
+        default:
           break;
       }
     },
   },
   mounted() {
     // Need deep copy of the current user
-    for (const prop in this.$store.state.auth.user) {
-      this.originalCurrentUser[prop] = this.$store.state.auth.user[prop];
+    const keys = Object.keys(this.$store.state.auth.user);
+    for (let i = 0; i < keys.length; i += 1) {
+      this.originalCurrentUser[keys[i]] = this.$store.state.auth.user[keys[i]];
     }
   },
 };

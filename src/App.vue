@@ -104,7 +104,7 @@
 
 export default {
   created() {
-    document.title = 'Golf Pools'
+    document.title = 'Golf Pools';
   },
   computed: {
     currentUser() {

@@ -142,7 +142,7 @@ export default {
         this.leaderboardObject = response.data.leaderboard;
         this.leaderboardArray = response.data.leaderboardArray;
         this.scores = response.data.scoresByTeam;
-        if (this.user && this.scores && this.scores.hasOwnProperty(this.user.team_name)) {
+        if (this.user && this.user.team_name && this.scores && this.scores[this.user.team_name]) {
           this.currentUserTeam = this.leaderboardObject[this.user.team_name];
         }
         // After the second round, display cut information
