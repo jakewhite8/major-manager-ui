@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-title title="Golf Pools"></vue-title>
+    <title>jaskdf</title>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -103,6 +103,9 @@
 // });
 
 export default {
+  created() {
+    document.title = 'Golf Pools'
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
