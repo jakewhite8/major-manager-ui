@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <title>jaskdf</title>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
