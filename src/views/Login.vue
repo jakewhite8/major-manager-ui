@@ -1,59 +1,61 @@
 <template>
-  <div class="col-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <form name="form" @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            v-model="user.email"
-            v-validate="'required|email'"
-            type="text"
-            class="form-control"
-            name="email"
-          />
-          <div
-            v-if="submitted && errors.has('email')"
-            class="alert alert-danger"
-            role="alert"
-          >Email is required!</div>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            v-model="user.password"
-            v-validate="'required'"
-            type="password"
-            class="form-control"
-            name="password"
-          />
-          <div
-            v-if="submitted && errors.has('password')"
-            class="alert alert-danger"
-            role="alert"
-          >Password is required!</div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-            <span>Login</span>
-          </button>
-        </div>
-        <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
-          <div v-if="invalidPassword">
-            <router-link
-                to="/forgot-password"
-                class="nav-link">
-              Forgot Password?
-            </router-link>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-container">
+        <img
+          id="profile-img"
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          class="profile-img-card"
+        />
+        <form name="form" @submit.prevent="handleLogin">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              v-model="user.email"
+              v-validate="'required|email'"
+              type="text"
+              class="form-control"
+              name="email"
+            />
+            <div
+              v-if="submitted && errors.has('email')"
+              class="alert alert-danger"
+              role="alert"
+            >Email is required!</div>
           </div>
-        </div>
-      </form>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              v-model="user.password"
+              v-validate="'required'"
+              type="password"
+              class="form-control"
+              name="password"
+            />
+            <div
+              v-if="submitted && errors.has('password')"
+              class="alert alert-danger"
+              role="alert"
+            >Password is required!</div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" :disabled="loading">
+              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+              <span>Login</span>
+            </button>
+          </div>
+          <div class="form-group">
+            <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+            <div v-if="invalidPassword">
+              <router-link
+                  to="/forgot-password"
+                  class="nav-link">
+                Forgot Password?
+              </router-link>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -94,10 +96,10 @@ export default {
         if (this.user.email && this.user.password) {
           this.$store.dispatch('auth/login', this.user).then(
             () => {
+              this.loading = false;
               this.$router.push('/profile');
             },
             (error) => {
-              this.loading = false;
               this.message = (error.response && error.response.data && error.response.data.message)
                 || error.message
                 || error.toString();
@@ -106,6 +108,7 @@ export default {
               } else {
                 this.invalidPassword = false;
               }
+              this.loading = false;
             },
           );
         }
