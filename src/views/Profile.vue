@@ -1,10 +1,8 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{ teamNameHeader }}</strong> Profile
-      </h3>
-    </header>
+    <PageTitle
+      :teamName=teamNameHeader
+      :title="`Profile`" />
     <div class="profile-buttons">
       <p>
         <button
@@ -35,8 +33,13 @@
 </template>
 
 <script>
+import PageTitle from '../components/PageTitle.vue'
+
 export default {
   name: 'Profile',
+  components: {
+    PageTitle
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
