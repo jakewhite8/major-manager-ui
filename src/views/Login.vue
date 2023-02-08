@@ -39,7 +39,7 @@
             >Password is required!</div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="loading">
+            <button class="btn btn-primary-dark-blue btn-block" :disabled="loading">
               <span v-show="loading" class="spinner-border spinner-border-sm"></span>
               <span>Login</span>
             </button>
@@ -150,5 +150,14 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+button.btn-primary-dark-blue {
+  background-color: #343a40;
+  border-color: #343a40;
+  color: rgba(255,255,255,.75);
+}
+button.btn-primary-dark-blue:hover {
+  color: white;
 }
 </style>

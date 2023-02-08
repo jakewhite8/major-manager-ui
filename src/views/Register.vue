@@ -65,7 +65,7 @@
             >{{errors.first('password_confirmation')}}</div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <button class="btn btn-primary-dark-blue btn-block">Sign Up</button>
           </div>
         </div>
       </form>
@@ -160,5 +160,13 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+button.btn-primary-dark-blue {
+  background-color: #343a40;
+  border-color: #343a40;
+  color: rgba(255,255,255,.75);
+}
+button.btn-primary-dark-blue:hover {
+  color: white;
 }
 </style>
