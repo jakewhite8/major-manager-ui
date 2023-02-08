@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>Active Tournaments</h3>
-    </header>
+    <PageTitle
+      :title="`Active Tournaments`" />
     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
     <div v-if="loading || tournaments && tournaments.length">
       <ClickableRowTable
@@ -20,6 +19,7 @@
 
 <script>
 import ClickableRowTable from '../components/ClickableRowTable.vue';
+import PageTitle from '../components/PageTitle.vue';
 import TournamentService from '../services/tournament.service';
 
 export default {
@@ -34,6 +34,7 @@ export default {
   },
   components: {
     ClickableRowTable,
+    PageTitle,
   },
   methods: {
     onClickFunction(id) {

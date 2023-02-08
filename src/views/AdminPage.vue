@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+    <PageTitle
+      :title=content />
     <div class="card overflow-hidden">
       <div class="row no-gutters row-bordered row-border-light">
         <div class="col-md-3 pt-0">
@@ -243,6 +242,7 @@
 </template>
 
 <script>
+import PageTitle from '../components/PageTitle.vue';
 import UserService from '../services/user.service';
 import TournamentService from '../services/tournament.service';
 import Tournament from '../models/tournament';
@@ -283,6 +283,9 @@ export default {
       playerDataSuccessful: false,
       submittedPlayerData: false,
     };
+  },
+  components: {
+    PageTitle,
   },
   mounted() {
     UserService.getAdminPage().then(

@@ -1,8 +1,7 @@
 <template>
   <div class="container light-style flex-grow-1 container-p-y">
-    <header class="jumbotron">
-      <h3>Account Settings</h3>
-    </header>
+    <PageTitle
+      :title="`Account Settings`" />
     <div class="card overflow-hidden">
       <div
         v-if="message"
@@ -172,6 +171,7 @@
 </template>
 
 <script>
+import PageTitle from '../components/PageTitle.vue'
 
 export default {
   name: 'Settings',
@@ -186,6 +186,9 @@ export default {
       loading: false,
       submitted: false,
     };
+  },
+  components : {
+    PageTitle
   },
   computed: {
     currentUser() {

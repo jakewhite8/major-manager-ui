@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{ user.team_name }} - Past Teams</h3>
-    </header>
+    <PageTitle
+      :teamName=user.team_name
+      :title="`Past Teams`" />
     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
     <div v-if="tournaments && tournaments.length">
       <ClickableRowTable
@@ -24,6 +24,7 @@
 
 <script>
 import ClickableRowTable from '../components/ClickableRowTable.vue';
+import PageTitle from '../components/PageTitle.vue';
 import TournamentService from '../services/tournament.service';
 import User from '../models/user';
 
@@ -41,6 +42,7 @@ export default {
   },
   components: {
     ClickableRowTable,
+    PageTitle,
   },
   methods: {
     onClickFunction(id) {

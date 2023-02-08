@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+    <PageTitle
+      :title=content />
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service';
+import PageTitle from '../components/PageTitle.vue';
 
 export default {
   name: 'Moderator',
@@ -15,6 +15,9 @@ export default {
     return {
       content: '',
     };
+  },
+  components: {
+    PageTitle,
   },
   mounted() {
     UserService.getModeratorPage().then(

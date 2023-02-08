@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{ tournament.name }} Leaderboard</h3>
-    </header>
+    <PageTitle
+      :teamName=tournament.name
+      :title="`Leaderboard`" />
     <div v-if="currentUserTeam.length" class="container">
       <div class="row">
         <div class="col-6">
@@ -103,6 +103,7 @@
 
 <script>
 import ClickableRowTable from '../components/ClickableRowTable.vue';
+import PageTitle from '../components/PageTitle.vue';
 import TournamentService from '../services/tournament.service';
 import Tournament from '../models/tournament';
 import User from '../models/user';
@@ -126,6 +127,7 @@ export default {
   },
   components: {
     ClickableRowTable,
+    PageTitle,
   },
   mounted() {
     this.tournament.id = this.$route.params.id;

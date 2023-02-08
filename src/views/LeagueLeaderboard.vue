@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>Total First Place Finishes</h3>
-    </header>
+    <PageTitle
+      :title="`Total First Place Finishes`" />
     <div class="container">
       <div v-if="!errorMessage">
         <div v-for="(team) in this.teamArray"
@@ -52,7 +51,7 @@
 <script>
 import TournamentService from '../services/tournament.service';
 import ClickableRowTable from '../components/ClickableRowTable.vue';
-
+import PageTitle from '../components/PageTitle.vue';
 
 export default {
   name: 'LeagueLeaderboard',
@@ -67,6 +66,7 @@ export default {
   },
   components: {
     ClickableRowTable,
+    PageTitle,
   },
   mounted() {
     // Get Tournament Winners Data
