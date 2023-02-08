@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <PageTitle
-      :teamName=user.team_name
+      :customField=user.team_name
       :title="`Past Teams`" />
     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
     <div v-if="tournaments && tournaments.length">

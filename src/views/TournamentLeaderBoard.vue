@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <PageTitle
-      :teamName=tournament.name
+      :customField=tournament.name
       :title="`Leaderboard`" />
     <div v-if="currentUserTeam.length" class="container">
       <div class="row">

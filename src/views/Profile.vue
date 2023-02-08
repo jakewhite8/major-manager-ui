@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <PageTitle
-      :teamName=teamNameHeader
+      :customField=teamNameHeader
       :title="`Profile`" />
     <div class="profile-buttons">
       <p>

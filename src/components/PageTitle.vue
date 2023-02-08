@@ -1,7 +1,7 @@
 <template>
   <header class="jumbotron">
       <h3>
-        <strong v-if="teamName">{{ teamName }}</strong>
+        <strong v-if="customField">{{ customField }}</strong>
         {{ title }}
       </h3>
   </header>
@@ -12,7 +12,7 @@ module.exports = {
     title: {
       required: true,
     },
-    teamName: {
+    customField: {
       required: false,
     },
   }
