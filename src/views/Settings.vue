@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import PageTitle from '../components/PageTitle.vue'
+import PageTitle from '../components/PageTitle.vue';
 
 export default {
   name: 'Settings',
@@ -187,8 +187,8 @@ export default {
       submitted: false,
     };
   },
-  components : {
-    PageTitle
+  components: {
+    PageTitle,
   },
   computed: {
     currentUser() {
