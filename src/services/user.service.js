@@ -41,6 +41,10 @@ class UserService {
       userId,
     }, { headers: authHeader() });
   }
+
+  validateHuman(params) {
+    return axios.post(`${server.URL}recaptcha/validate`, params);
+  }
 }
 
 export default new UserService();

@@ -65,11 +65,16 @@
             >{{errors.first('password_confirmation')}}</div>
           </div>
           <div class="form-group">
+            <VueRecaptcha
+              :sitekey="this.recaptchaSiteKey"
+              :loadRecaptchaScript="true"
+              @verify="validateHuman" />
+          </div>
+          <div class="form-group">
             <button class="btn btn-primary-dark-blue btn-block">Sign Up</button>
           </div>
         </div>
       </form>
-
       <div
         v-if="message"
         class="alert"
@@ -81,6 +86,8 @@
 
 <script>
 import User from '../models/user';
+import VueRecaptcha from 'vue-recaptcha';
+import UserService from '../services/user.service'
 
 export default {
   name: 'Register',
@@ -90,7 +97,11 @@ export default {
       submitted: false,
       successful: false,
       message: '',
+      recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEYS
     };
+  },
+  components: {
+    VueRecaptcha
   },
   computed: {
     loggedIn() {
@@ -124,6 +135,13 @@ export default {
         }
       });
     },
+    validateHuman (response) {
+      UserService.validateHuman({Response: response}).then(result => {
+        console.log('valid')
+      }).catch(error => {
+        console.log(error)
+      })
+    }
   },
 };
 </script>
