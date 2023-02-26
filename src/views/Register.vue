@@ -64,11 +64,17 @@
               class="alert alert-danger"
             >{{errors.first('password_confirmation')}}</div>
           </div>
-          <div class="form-group">
+          <div class="form-group recaptcha-container">
             <VueRecaptcha
-              :sitekey="this.recaptchaSiteKey"
+              :sitekey="this.recaptcha.siteKey"
               :loadRecaptchaScript="true"
-              @verify="validateHuman" />
+              @verify="validateHuman"
+              @expired="recaptchaExpire"
+              @error="recaptchaError" />
+            <div
+              v-if="submitted && !recaptcha.verified"
+              class="alert alert-danger"
+            >{{recaptcha.message}}</div>
           </div>
           <div class="form-group">
             <button class="btn btn-primary-dark-blue btn-block">Sign Up</button>
@@ -97,7 +103,11 @@ export default {
       submitted: false,
       successful: false,
       message: '',
-      recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEYS
+      recaptcha : {
+        siteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEYS,
+        verified: false,
+        message: 'Verify Intentions'
+      }
     };
   },
   components: {
@@ -118,7 +128,7 @@ export default {
       this.message = '';
       this.submitted = true;
       this.$validator.validate().then((isValid) => {
-        if (isValid) {
+        if (isValid && this.recaptcha.verified) {
           this.$store.dispatch('auth/register', this.user).then(
             (data) => {
               this.message = data.message;
@@ -132,15 +142,27 @@ export default {
               this.successful = false;
             },
           );
-        }
+        } else if (!this.recaptcha.verified) {
+          this.recaptcha.message = 'Verify Intentions'
+        } 
       });
     },
-    validateHuman (response) {
+    validateHuman(response) {
       UserService.validateHuman({Response: response}).then(result => {
-        console.log('valid')
+        this.recaptcha.verified = true;
+        this.recaptcha.message = '';
       }).catch(error => {
-        console.log(error)
+        this.recaptcha.verified = false;
+        this.recaptcha.message = 'Error Validating';
       })
+    },
+    recaptchaExpire() {
+      this.recaptcha.verified = false
+      this.recaptcha.message = 'Verification Expired'
+    },
+    recaptchaError() {
+      this.recaptcha.verified = false
+      this.recaptcha.message = 'Verification Error'
     }
   },
 };
@@ -186,5 +208,9 @@ button.btn-primary-dark-blue {
 }
 button.btn-primary-dark-blue:hover {
   color: white;
+}
+
+.recaptcha-container {
+  overflow: overlay;
 }
 </style>
