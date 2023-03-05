@@ -20,7 +20,7 @@
                   {{ team.team_name }}
                 </div>
                 <div class="col-6 text-right">
-                  {{ totalWinsObject[team.team_name] }}
+                  {{ team.tournaments.length }}
                 </div>
               </div>
             </div>
@@ -59,7 +59,6 @@ export default {
     return {
       errorMessage: '',
       teamArray: [],
-      totalWinsObject: {},
       headers: null,
       columns: null,
     };
@@ -74,7 +73,6 @@ export default {
       (response) => {
         this.errorMessage = '';
         this.teamArray = response.data.teamArray;
-        this.totalWinsObject = response.data.tournamentWinCount;
         this.headers = ['Tournament'];
         this.columns = ['name'];
       }, (error) => {
