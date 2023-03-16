@@ -91,9 +91,9 @@
 </template>
 
 <script>
-import User from '../models/user';
 import VueRecaptcha from 'vue-recaptcha';
-import UserService from '../services/user.service'
+import User from '../models/user';
+import UserService from '../services/user.service';
 
 export default {
   name: 'Register',
@@ -103,15 +103,15 @@ export default {
       submitted: false,
       successful: false,
       message: '',
-      recaptcha : {
+      recaptcha: {
         siteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEYS,
         verified: false,
-        message: 'Verify Intentions'
-      }
+        message: 'Verify Intentions',
+      },
     };
   },
   components: {
-    VueRecaptcha
+    VueRecaptcha,
   },
   computed: {
     loggedIn() {
@@ -143,27 +143,27 @@ export default {
             },
           );
         } else if (!this.recaptcha.verified) {
-          this.recaptcha.message = 'Verify Intentions'
-        } 
+          this.recaptcha.message = 'Verify Intentions';
+        }
       });
     },
     validateHuman(response) {
-      UserService.validateHuman({Response: response}).then(result => {
+      UserService.validateHuman({ Response: response }).then(() => {
         this.recaptcha.verified = true;
         this.recaptcha.message = '';
-      }).catch(error => {
+      }).catch(() => {
         this.recaptcha.verified = false;
         this.recaptcha.message = 'Error Validating';
-      })
+      });
     },
     recaptchaExpire() {
-      this.recaptcha.verified = false
-      this.recaptcha.message = 'Verification Expired'
+      this.recaptcha.verified = false;
+      this.recaptcha.message = 'Verification Expired';
     },
     recaptchaError() {
-      this.recaptcha.verified = false
-      this.recaptcha.message = 'Verification Error'
-    }
+      this.recaptcha.verified = false;
+      this.recaptcha.message = 'Verification Error';
+    },
   },
 };
 </script>

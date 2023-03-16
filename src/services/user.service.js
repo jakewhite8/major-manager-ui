@@ -4,7 +4,6 @@ import server from './serverURL';
 
 const API_URL = `${server.URL}api/test/`;
 
-
 /* eslint class-methods-use-this: [0, { "enforceForClassFields": false }] */
 class UserService {
   getPublicContent() {

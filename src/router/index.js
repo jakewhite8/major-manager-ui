@@ -18,7 +18,6 @@ import Settings from '../views/Settings.vue';
 import ForgotPassword from '../views/ForgotPassword.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 
-
 Vue.use(VueRouter);
 
 const routes = [

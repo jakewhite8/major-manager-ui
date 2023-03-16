@@ -4,7 +4,6 @@ import server from './serverURL';
 
 const API_URL = `${server.URL}api/v1`;
 
-
 /* eslint class-methods-use-this: [0, { "enforceForClassFields": false }] */
 class TournamentService {
   // Return tournaments that have not started yet
