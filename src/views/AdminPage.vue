@@ -113,6 +113,10 @@
                     <div class="col-6">
                       <label class="form-label" for="select_round">Round</label>
                     </div>
+                    <div v-if="roundSectionError"
+                        class="col-6 alert-danger alert-player-data-section">
+                      Round data cannot be empty
+                    </div>
                   </div>
                   <v-select
                     name="select_round"
@@ -272,6 +276,7 @@ export default {
       arrayOfTeamsInATournament: [],
       selectedTournament: null,
       selectedRound: null,
+      roundSectionError: false,
       selectedAddWinnerTournament: null,
       selectedAddWinnerTeam: null,
       playerTournamentNameSectionError: false,
@@ -372,14 +377,18 @@ export default {
         } else {
           this.playerDataSectionError = false;
         }
+        if (!this.selectedRound) {
+          this.roundSectionError = true;
+        } else {
+          this.roundSectionError = false;
+        }
       }
     },
     updatePlayerData() {
       this.submittedPlayerData = true;
       this.checkForPlayerDataErrors();
       this.loadingPlayerData = true;
-
-      if (this.playerData && this.selectedTournament) {
+      if (this.playerData && this.selectedTournament && this.selectedRound) {
         // create playerData JSON object needed by the server to update a Player's Data
         // {
         //   "playerData": [{
@@ -401,12 +410,13 @@ export default {
         try {
           const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`);
 
-          UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest).then(
+          UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest, this.selectedRound).then(
             () => {
               this.playerDataSuccessful = true;
               this.playerDataMessage = 'Tournament Update Successful';
               this.submittedPlayerData = false;
               this.selectedTournament = null;
+              this.selectedRound = null;
               this.playerData = '';
               this.loadingPlayerData = false;
             }, (error) => {
