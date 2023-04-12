@@ -68,7 +68,12 @@
                 :aria-controls="'collapsing' + team[0].team_name.split(' ').join('')"
                 class="row">
                 <div class="col-6">
-                  {{ scores[team[0].team_name].position }}) {{ team[0].team_name }}
+                  <span v-if="tournament.round > 0">
+                    {{ scores[team[0].team_name].position }})
+                  </span>
+                  <span>
+                    {{ team[0].team_name }}
+                  </span>
                 </div>
                 <div class="col-6 text-right">
                   {{ scores[team[0].team_name].score }}
