@@ -5,56 +5,72 @@
         {{ tournament.name }} Player Selection
       </h3>
     </header>
-    <form @submit.prevent="handlePlayerSubmit">
-      <div
-        class="table-responsive container"
-        v-for="(playerArray, tier, index) in players"
-        :key="index">
-        <table class="table table-sm table-bordered table-hover">
-          <thead class="thead-dark">
-            <tr class="row">
-              <th class="col-1">
-              </th>
-              <th class="col-11">
-                Tier {{ index + 1 }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="player in players[`tier-${index + 1}`]" :key="player.player_id" class="row">
-              <td class="col-1">
-                <input
-                  type="radio"
-                  :id="player.player_id"
-                  :value="player.player_id"
-                  :name="'tier-' + player.tier"
-                  v-model="submitPlayerDataObject[`tier-${index+1}`]"
-                  v-validate="'required'">
-              </td>
-              <td class="col-11">
-                <label :for="player.player_id">
-                  {{ player.first_name }} {{ player.last_name }}
-                </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" :disabled="loading">
-          <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-          <span>Submit</span>
-        </button>
-      </div>
-      <div class="form-group">
+    <div v-if="Object.keys(players).length != 0">
+      <form @submit.prevent="handlePlayerSubmit">
         <div
-          v-if="submitted && errors.items.length > 1 || message"
-          class="alert alert-danger"
-          role="alert">
-          {{ message || 'Select one Player from each section'}}
+          class="table-responsive container"
+          v-for="(playerArray, tier, index) in players"
+          :key="index">
+          <table class="table table-sm table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr class="row">
+                <th class="col-1">
+                </th>
+                <th class="col-11">
+                  Tier {{ index + 1 }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="player in players[`tier-${index + 1}`]" :key="player.player_id" class="row">
+                <td class="col-1">
+                  <input
+                    type="radio"
+                    :id="player.player_id"
+                    :value="player.player_id"
+                    :name="'tier-' + player.tier"
+                    v-model="submitPlayerDataObject[`tier-${index+1}`]"
+                    v-validate="'required'">
+                </td>
+                <td class="col-11">
+                  <label :for="player.player_id">
+                    {{ player.first_name }} {{ player.last_name }}
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" :disabled="loading">
+            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+            <span>Submit</span>
+          </button>
+        </div>
+        <div class="form-group">
+          <div
+            v-if="submitted && errors.items.length > 1 || message"
+            class="alert alert-danger"
+            role="alert">
+            {{ message || 'Select one Player from each section'}}
+          </div>
+        </div>
+      </form>
+    </div>
+    <div v-else>
+      <div v-if="submitted && errors.items.length > 1 || message">
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert">
+            {{ message || 'Select one Player from each section'}}
+          </div>
         </div>
       </div>
-    </form>
+      <div v-else>
+        <h3>Sign up not yet available</h3>
+      </div>
+    </div>
   </div>
 </template>
 
