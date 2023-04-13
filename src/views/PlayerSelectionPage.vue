@@ -121,10 +121,6 @@ export default {
           TournamentService
             .setTeam(this.submitPlayerDataObject, this.tournament.id).then(
               (res) => {
-                if (res && res.data && res.data.message && res.data.message.indexOf('Error') > -1) {
-                  this.message = res.data.message;
-                  return;
-                }
                 this.$router.push('/active-teams');
               }, (err) => {
                 this.message = (err.response && err.response.data)
