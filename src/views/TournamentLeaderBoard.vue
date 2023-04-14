@@ -57,15 +57,15 @@
         <div v-for="(team) in this.leaderboardArray"
           id="accordion"
           class="accordionClass"
-          :key="team[0].team_name">
+          :key="team[0].userId">
           <div class="card">
-            <div class="card-header container" :id="'heading-'+team[0].team_name">
+            <div class="card-header container" :id="'heading-'+team[0].userId">
               <div
                 data-toggle="collapse"
-                :data-target="'#collapsing' + team[0].team_name.split(' ').join('')"
+                :data-target="'#collapsing' + team[0].userId"
                 aria-expanded="false"
                 row="botton"
-                :aria-controls="'collapsing' + team[0].team_name.split(' ').join('')"
+                :aria-controls="'collapsing' + team[0].userId"
                 class="row">
                 <div class="col-6">
                   <span v-if="tournament.round > 0">
@@ -81,9 +81,9 @@
               </div>
             </div>
             <div
-              :id="'collapsing' + team[0].team_name.split(' ').join('')"
+              :id="'collapsing' + team[0].userId"
               class="collapse multi-collapse"
-              :aria-labelledby="'heading-'+team[0].team_name"
+              :aria-labelledby="'heading-'+team[0].userId"
               data-parent=".accordionClass"
               >
               <div class="card-body container">
