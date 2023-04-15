@@ -59,7 +59,7 @@
           class="accordionClass"
           :key="team[0].userId">
           <div class="card">
-            <div class="card-header container" :id="'heading-'+team[0].userId">
+            <div class="card-header container card-border" :id="'heading-'+team[0].userId">
               <div
                 data-toggle="collapse"
                 :data-target="'#collapsing' + team[0].userId"
@@ -67,15 +67,17 @@
                 row="botton"
                 :aria-controls="'collapsing' + team[0].userId"
                 class="row">
-                <div class="col-6">
-                  <span v-if="tournament.round > 0">
-                    {{ scores[team[0].team_name].position }})
-                  </span>
-                  <span>
-                    {{ team[0].team_name }}
-                  </span>
+                <div class="col-10">
+                  <div class="row">
+                    <span v-if="tournament.round > 0" class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-right position-divider">
+                      {{ scores[team[0].team_name].position }}
+                    </span>
+                    <span class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11">
+                      {{ team[0].team_name }}
+                    </span>
+                  </div>
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-2 text-right">
                   {{ scores[team[0].team_name].score }}
                 </div>
               </div>
@@ -183,6 +185,14 @@ export default {
 <style scoped>
 div.card-header:hover {
   cursor: pointer;
+}
+div.card-border {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+span.position-divider {
+  border-right: solid rgba(0, 0, 0, 0.125);
 }
 div.leaderboard {
   margin-bottom: 100px;
