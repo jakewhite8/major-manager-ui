@@ -67,17 +67,17 @@
                 row="botton"
                 :aria-controls="'collapsing' + team[0].userId"
                 class="row">
-                <div class="col-10">
-                  <div class="row">
-                    <span v-if="tournament.round > 0" class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-right position-divider">
+                <div class="col-9">
+                  <div class="row mobile-row-height">
+                    <span v-if="tournament.round > 0" class="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-right position-divider">
                       {{ scores[team[0].team_name].position }}
                     </span>
-                    <span class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11">
+                    <span class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11">
                       {{ team[0].team_name }}
                     </span>
                   </div>
                 </div>
-                <div class="col-2 text-right">
+                <div class="col-3 text-right">
                   {{ scores[team[0].team_name].score }}
                 </div>
               </div>
@@ -212,5 +212,11 @@ div.leaderboardTitleRow div.leaderboardTitleContainer h5.leaderboardTitleHeader 
 
 h5.leaderboardTitleHeader.alignHeaderRight {
   right: 15px;
+}
+
+@media (max-width: 600px) {
+  .mobile-row-height {
+    height: 70px
+  }
 }
 </style>
