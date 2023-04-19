@@ -410,22 +410,24 @@ export default {
         try {
           const playerDataRequest = JSON.parse(`{ "playerData": [ ${this.playerData} ] }`);
 
-          UserService.updatePlayerData(this.selectedTournament.id, playerDataRequest, this.selectedRound).then(
-            () => {
-              this.playerDataSuccessful = true;
-              this.playerDataMessage = 'Tournament Update Successful';
-              this.submittedPlayerData = false;
-              this.selectedTournament = null;
-              this.selectedRound = null;
-              this.playerData = '';
-              this.loadingPlayerData = false;
-            }, (error) => {
-              this.playerDataSuccessful = false;
-              this.playerDataMessage = typeof error.message === 'string'
-                ? error.message : 'Tournament Failed to Update';
-              this.loadingPlayerData = false;
-            },
-          );
+          UserService.updatePlayerData(
+            this.selectedTournament.id,
+            playerDataRequest,
+            this.selectedRound,
+          ).then(() => {
+            this.playerDataSuccessful = true;
+            this.playerDataMessage = 'Tournament Update Successful';
+            this.submittedPlayerData = false;
+            this.selectedTournament = null;
+            this.selectedRound = null;
+            this.playerData = '';
+            this.loadingPlayerData = false;
+          }, (error) => {
+            this.playerDataSuccessful = false;
+            this.playerDataMessage = typeof error.message === 'string'
+              ? error.message : 'Tournament Failed to Update';
+            this.loadingPlayerData = false;
+          });
         } catch (error) {
           this.playerDataSuccessful = false;
           this.playerDataMessage = typeof error.message === 'string'

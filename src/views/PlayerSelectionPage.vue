@@ -22,7 +22,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="player in players[`tier-${index + 1}`]" :key="player.player_id" class="row">
+              <tr
+                v-for="player in players[`tier-${index + 1}`]"
+                :key="player.player_id"
+                class="row">
                 <td class="col-1">
                   <input
                     type="radio"

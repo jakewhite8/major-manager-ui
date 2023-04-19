@@ -31,7 +31,7 @@ class UserService {
 
   updatePlayerData(tournamentId, playerData, round) {
     return axios.post(`${server.URL}api/v1/upload_player_scores/${tournamentId}`,
-      {...playerData, round}, { headers: authHeader() });
+      { ...playerData, round }, { headers: authHeader() });
   }
 
   addWinningTeamToTournament(tournamentId, userId) {

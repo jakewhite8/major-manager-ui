@@ -47,7 +47,7 @@ export default {
   methods: {
     onClickFunction(id, startDate) {
       const today = new Date().getTime();
-      const tournamentStartDate = new Date(startDate).getTime()
+      const tournamentStartDate = new Date(startDate).getTime();
       if (tournamentStartDate < today) {
         // If the tournament has started, take user to leaderboard
         this.$router.push(`/tournament/${id}/leaderboard`);
