@@ -1,12 +1,12 @@
 <template>
-  <div class="col-12">
+  <div id="registration-page" class="col-12">
     <div class="card card-container">
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleRegister">
+      <form name="form" id="registration-form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="form-group">
             <label for="team_name">Team Name</label>
@@ -74,10 +74,11 @@
             <div
               v-if="submitted && !recaptcha.verified"
               class="alert alert-danger"
+              id="recaptcha-error-message"
             >{{recaptcha.message}}</div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary-dark-blue btn-block">Sign Up</button>
+            <button id="registration-sign-up" class="btn btn-primary-dark-blue btn-block">Sign Up</button>
           </div>
         </div>
       </form>
