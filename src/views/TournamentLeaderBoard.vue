@@ -66,16 +66,16 @@
                 aria-expanded="false"
                 row="botton"
                 :aria-controls="'collapsing' + team[0].userId"
-                class="row">
+                class="row align-items-center">
                 <div class="col-9">
-                  <div class="row mobile-row-height">
+                  <div class="row mobile-row-height align-items-center">
                     <span
                       v-if="tournament.round > 0"
                       class="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-right
-                        position-divider">
+                         ">
                       {{ scores[team[0].team_name].position }}
                     </span>
-                    <span class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11">
+                    <span class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11 team-name-divider align-items-center-team-name">
                       {{ team[0].team_name }}
                     </span>
                   </div>
@@ -194,8 +194,8 @@ div.card-border {
   padding-bottom: 0;
   border-bottom: none;
 }
-span.position-divider {
-  border-right: solid rgba(0, 0, 0, 0.125);
+span.team-name-divider {
+  border-left: solid rgba(0, 0, 0, 0.125);
 }
 div.leaderboard {
   margin-bottom: 100px;
@@ -221,5 +221,14 @@ h5.leaderboardTitleHeader.alignHeaderRight {
   .mobile-row-height {
     height: 70px
   }
+  .align-items-center {
+    align-items: center;
+  }
+  .align-items-center-team-name {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
 }
+/*make these max-width:600*/
 </style>
