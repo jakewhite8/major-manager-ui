@@ -75,7 +75,9 @@
                          ">
                       {{ scores[team[0].team_name].position }}
                     </span>
-                    <span class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11 team-name-divider align-items-center-team-name">
+                    <span
+                      class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11  align-items-center-team-name"
+                      :class="teamNameDivider">
                       {{ team[0].team_name }}
                     </span>
                   </div>
@@ -133,6 +135,7 @@ export default {
       headers: null,
       columns: null,
       hiddenStatus: true,
+      teamNameDivider: 'team-name-divider-solid',
     };
   },
   components: {
@@ -165,6 +168,8 @@ export default {
           this.headers = ['Players', 'Score'];
           this.columns = ['last_name', 'score'];
         }
+        this.teamNameDivider = 
+          this.tournament.round > 0 ? 'team-name-divider-solid' : 'team-name-divider-none';
       }, (error) => {
         this.message = (error.response && error.response.data)
           || error.message
@@ -194,8 +199,11 @@ div.card-border {
   padding-bottom: 0;
   border-bottom: none;
 }
-span.team-name-divider {
+span.team-name-divider-solid {
   border-left: solid rgba(0, 0, 0, 0.125);
+}
+span.team-name-divider-none {
+  border-left: none;
 }
 div.leaderboard {
   margin-bottom: 100px;
