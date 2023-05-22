@@ -161,7 +161,7 @@ export default {
           this.currentUserTeam = this.leaderboardObject[this.user.team_name];
         }
         // After the second round, display cut information
-        if (this.tournament.round >= 3) {
+        if (this.tournament.round >= 2) {
           this.headers = ['Players', 'Cut', 'Score'];
           this.columns = ['last_name', 'cut', 'score'];
         } else {
