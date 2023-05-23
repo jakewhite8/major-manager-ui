@@ -42,7 +42,7 @@
                     class="form-control"
                     name="tournament_name">
                   <div v-if="submitted && tournamentNameError"
-                        class="alert-danger error-admin-page">
+                        class="alert-danger alert-admin-page">
                     Name is required and needs to be between 3 and 40 characters
                   </div>
                 </div>
@@ -55,7 +55,7 @@
                     class="form-control"
                     name="tournament_date">
                   <div v-if="submitted && tournamentDateError"
-                        class="alert-danger error-admin-page">
+                        class="alert-danger alert-admin-page">
                     Date is required
                   </div>
                 </div>
@@ -73,7 +73,7 @@
                   <div
                     v-if="message"
                     :class="successful ? 'alert-success' : 'alert-danger'"
-                    class="error-admin-page">
+                    class="alert-admin-page">
                     {{this.message}}
                   </div>
                 </div>
@@ -108,7 +108,7 @@
                     ></v-select>
                     <div class="row select-tournament-error-style">
                       <div v-if="playerTournamentNameSectionError"
-                            class="col-12 alert-danger error-admin-page">
+                            class="col-12 alert-danger alert-admin-page">
                         Select a Tournament
                       </div>
                     </div>
@@ -195,7 +195,7 @@
                   </v-select>
                   <div class="row select-tournament-error-style">
                     <div v-if="winningTournamentSelectionError"
-                          class="col-12 alert-danger error-admin-page">
+                          class="col-12 alert-danger alert-admin-page">
                       {{this.winningTournamentSelectionErrorMessage}}
                     </div>
                   </div>
@@ -217,7 +217,7 @@
                     </v-select>
                     <div class="row select-tournament-error-style">
                       <div v-if="winningTeamSelectionError"
-                            class="col-12 alert-danger error-admin-page">
+                            class="col-12 alert-danger alert-admin-page">
                         {{this.winningTeamSelectionErrorMessage}}
                       </div>
                     </div>
@@ -236,7 +236,7 @@
                     <div
                       v-if="messageWinningTeam"
                       :class="successfulWinningTeam ? 'alert-success' : 'alert-danger'"
-                      class="error-admin-page">
+                      class="alert-admin-page">
                       {{this.messageWinningTeam}}
                     </div>
                   </div>
@@ -276,7 +276,7 @@
                   <div
                     v-if="messageUpdatePassword"
                     :class="successfulUpdatePassword ? 'alert-success' : 'alert-danger'"
-                    class="error-admin-page">
+                    class="alert-admin-page">
                     {{this.messageUpdatePassword}}
                   </div>
                 </div>
@@ -571,10 +571,10 @@ export default {
         })
     },
   },
-};
+};``
 </script>
 <style scoped>
-  div.error-admin-page {
+  div.alert-admin-page {
     text-align: center;
     padding: 10px 0;
     margin: 10px 0;
