@@ -21,6 +21,11 @@
                 href="#add-winner">
               Add Winning Team
             </a>
+            <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#reset-password">
+              Reset Password
+            </a>
           </div>
         </div>
         <div class="col-md-9">
@@ -238,6 +243,45 @@
                 </div>
               </div>
             </div>
+            <div class="tab-pane fade" id="reset-password">
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="form-label" for="user_email">User Email</label>
+                  <input
+                    v-model="changeUserPassword.email"
+                    type="text"
+                    class="form-control"
+                    name="user_email">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new_password">New Password</label>
+                  <input
+                    v-model="changeUserPassword.password"
+                    type="text"
+                    class="form-control"
+                    name="new_password">
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    :disabled="loadingUpdatePassword"
+                    v-on:click="updatePassword()"
+                    class="btn btn-primary-dark-blue">
+                    <span>Update Password</span>
+                    <span v-show="loadingUpdatePassword"
+                        class="spinner-border spinner-border-sm">
+                    </span>
+                  </button>
+                  <div
+                    v-if="messageUpdatePassword"
+                    :class="successfulUpdatePassword ? 'alert-success' : 'alert-danger'"
+                    class="error-admin-page">
+                    {{this.messageUpdatePassword}}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -250,6 +294,7 @@ import PageTitle from '../components/PageTitle.vue';
 import UserService from '../services/user.service';
 import TournamentService from '../services/tournament.service';
 import Tournament from '../models/tournament';
+import User from '../models/user';
 import 'vue-select/dist/vue-select.css';
 
 export default {
@@ -258,18 +303,22 @@ export default {
     return {
       content: '',
       newTournament: new Tournament('', null, '', null),
+      changeUserPassword: new User(null, null, null),
       tournamentNameError: false,
       tournamentDateError: false,
       submitted: false,
       successful: false,
       message: '',
       successfulWinningTeam: false,
+      successfulUpdatePassword: false,
       messageWinningTeam: '',
+      messageUpdatePassword: '',
       playerDataMessage: '',
       concludedTournamentMessage: '',
       loadingCreateTournament: false,
       loadingPlayerData: false,
       loadingAddWinningTeam: false,
+      loadingUpdatePassword: false,
       playerData: '',
       options: [],
       arrayOfConcludedTournaments: [],
@@ -501,6 +550,25 @@ export default {
         }
         this.loadingAddWinningTeam = false;
       }
+    },
+    updatePassword() {
+      this.loadingUpdatePassword = true;
+
+      const user = {
+        email: this.changeUserPassword.email,
+        password: this.changeUserPassword.password
+      }
+      UserService.updatePassword(user)
+        .then(() => {
+          this.messageUpdatePassword = 'Password Update Successful'
+          this.successfulUpdatePassword = true;
+          this.loadingUpdatePassword = false;
+        }, (error) => {
+          this.messageUpdatePassword = typeof error.message === 'string'
+              ? error.message : 'Password Update Unsuccessful';
+          this.successfulUpdatePassword = false;
+          this.loadingUpdatePassword = false;
+        })
     },
   },
 };
