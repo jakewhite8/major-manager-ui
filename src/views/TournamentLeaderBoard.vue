@@ -35,10 +35,8 @@
           <button
             type="button"
             class="btn btn-link btn-sm accordionClass"
-            data-toggle="collapse"
-            data-target=".multi-collapse"
             aria-expanded="false"
-            v-on:click="toggleButtonIcon">
+            v-on:click="showAllButton">
               <font-awesome-icon
                 v-if="this.hiddenStatus"
                 icon="eye"/>
@@ -90,6 +88,7 @@
             <div
               :id="'collapsing' + team[0].userId"
               class="collapse multi-collapse"
+              :class="showAll"
               :aria-labelledby="'heading-'+team[0].userId"
               data-parent=".accordionClass"
               >
@@ -135,6 +134,7 @@ export default {
       headers: null,
       columns: null,
       hiddenStatus: true,
+      showAll: false,
       teamNameDivider: 'team-name-divider-solid',
     };
   },
@@ -178,8 +178,9 @@ export default {
     );
   },
   methods: {
-    toggleButtonIcon() {
+    showAllButton() {
       this.hiddenStatus = !this.hiddenStatus;
+      this.showAll = this.hiddenStatus ? '' : 'show';
     },
   },
   computed: {
