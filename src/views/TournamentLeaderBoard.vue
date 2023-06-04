@@ -87,7 +87,7 @@
             </div>
             <div
               :id="'collapsing' + team[0].userId"
-              class="collapse multi-collapse"
+              class="collapse multi-collapse dropdown-styles"
               :class="showAll"
               :aria-labelledby="'heading-'+team[0].userId"
               data-parent=".accordionClass"
@@ -192,6 +192,9 @@ export default {
 };
 </script>
 <style scoped>
+div.dropdown-styles {
+  background-color: rgb(0, 0, 0, 0.03);
+}
 div.card-header:hover {
   cursor: pointer;
 }
