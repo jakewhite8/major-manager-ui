@@ -3,42 +3,63 @@
     <PageTitle
       :customField=teamNameHeader
       :title="`Profile`" />
-    <div class="profile-buttons">
-      <p>
+    <div class="profile-buttons row">
+      <div class="col-4">
         <button
         type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('active-tournaments')">
           Join Tournament
         </button>
-      </p>
-      <p>
+      </div>
+      <div class="col-4">
         <button
         type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('active-teams')">
           Active Teams
         </button>
-      </p>
-      <p>
+      </div>
+      <div class="col-4">
         <button
         type="button"
         class="btn btn-lg btn-block"
         v-on:click="routeTo('past-teams')">
           Current and Past Results
         </button>
-      </p>
+      </div>
+    </div>
+    <div class="row">
+      <PastTournamentsTable
+        :tournaments=tournaments
+        :loading=loading
+        :headers=headers
+        :columns=columns
+        :message=message />
     </div>
   </div>
 </template>
 
 <script>
 import PageTitle from '../components/PageTitle.vue';
+import PastTournamentsTable from '../components/PastTournamentsTable.vue';
+import TournamentService from '../services/tournament.service';
 
 export default {
   name: 'Profile',
+  data() {
+    return {
+      loading: false,
+      tournaments: [],
+      headers: [],
+      columns: [],
+      message: '',
+    }
+
+  },
   components: {
     PageTitle,
+    PastTournamentsTable
   },
   computed: {
     currentUser() {
@@ -57,10 +78,28 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+    this.loading = true;
+    TournamentService.getPastTournamentsForAUser().then(
+      (response) => {
+        this.tournaments = response.data;
+        this.headers = ['Tournaments', 'Start Date'];
+        this.columns = ['name', 'start_date'];
+        this.loading = false;
+      },
+      (error) => {
+        this.message = (error.response && error.response.data)
+          || error.message
+          || error.toString();
+        this.loading = false;
+      },
+    );
   },
 };
 </script>
 <style scoped>
+  .profile-buttons {
+    margin-bottom: 2rem;
+  }
   .profile-buttons button {
     background-color: #343a40;
     color: rgba(255,255,255,.75);

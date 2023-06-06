@@ -3,28 +3,19 @@
     <PageTitle
       :customField=user.team_name
       :title="`Past Teams`" />
-    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-    <div v-if="tournaments && tournaments.length">
-      <ClickableRowTable
-        :rowData=tournaments
+    <PastTournamentsTable
+        :tournaments=tournaments
+        :loading=loading
         :headers=headers
         :columns=columns
-        :onClickFunction=onClickFunction
-      />
-    </div>
-    <div v-else>
-      <h3>No past Tournaments found for {{user.team_name}}</h3>
-      <router-link to="/active-tournaments" class="nav-link">
-        <font-awesome-icon icon="user-plus" />Join Tournament
-      </router-link>
-    </div>
-    <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+        :message=message
+        :user=user />
   </div>
 </template>
 
 <script>
-import ClickableRowTable from '../components/ClickableRowTable.vue';
 import PageTitle from '../components/PageTitle.vue';
+import PastTournamentsTable from '../components/PastTournamentsTable.vue';
 import TournamentService from '../services/tournament.service';
 import User from '../models/user';
 
@@ -41,14 +32,8 @@ export default {
     };
   },
   components: {
-    ClickableRowTable,
     PageTitle,
-  },
-  methods: {
-    onClickFunction(id) {
-      // Take user to a page to view Tournament results
-      this.$router.push(`/tournament/${id}/leaderboard`);
-    },
+    PastTournamentsTable
   },
   mounted() {
     this.user = this.$store.state.auth.user;
