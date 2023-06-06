@@ -79,7 +79,7 @@ export default {
       this.$router.push('/login');
     }
     this.loading = true;
-    TournamentService.getPastTournamentsForAUser().then(
+    TournamentService.getConcludedTournaments().then(
       (response) => {
         this.tournaments = response.data;
         this.headers = ['Tournaments', 'Start Date'];
