@@ -29,6 +29,11 @@
         </button>
       </div>
     </div>
+    <div class="text-center">
+      <h4 class="mb-3">
+        League History        
+      </h4>
+    </div>
     <div class="row">
       <PastTournamentsTable
         :tournaments=tournaments
