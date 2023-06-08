@@ -14,6 +14,10 @@ class UserService {
     return axios.get(`${API_URL}user`, { headers: authHeader() });
   }
 
+  getUserInformation(id){
+    return axios.get(`${server.URL}api/v1/user_info/${id}`);
+  }
+
   getModeratorPage() {
     return axios.get(`${API_URL}mod`, { headers: authHeader() });
   }

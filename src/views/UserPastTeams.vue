@@ -38,21 +38,26 @@ export default {
   mounted() {
     this.user = this.$store.state.auth.user;
     this.loading = true;
-    TournamentService.getPastTournamentsForAUser().then(
-      (response) => {
-        this.tournaments = response.data;
-        // Instead of displaying start date, display the result
-        this.headers = ['Tournaments', 'Start Date'];
-        this.columns = ['name', 'start_date'];
-        this.loading = false;
-      },
-      (error) => {
-        this.message = (error.response && error.response.data)
-          || error.message
-          || error.toString();
-        this.loading = false;
-      },
-    );
+    if (!this.user) {
+      this.message = 'Must be logged in'
+    } else {
+      TournamentService.getPastTournamentsForAUser(this.user.id).then(
+        (response) => {
+          this.tournaments = response.data;
+          // Instead of displaying start date, display the result
+          this.headers = ['Tournaments', 'Start Date'];
+          this.columns = ['name', 'start_date'];
+          this.loading = false;
+          this.message = '';
+        },
+        (error) => {
+          this.message = (error.response && error.response.data)
+            || error.message
+            || error.toString();
+          this.loading = false;
+        },
+      );
+    }
   },
 };
 </script>

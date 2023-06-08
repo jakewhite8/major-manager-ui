@@ -55,7 +55,7 @@ const routes = [
     component: LeagueLeaderboard,
   },
   {
-    path: '/user',
+    path: '/user/:id',
     component: UserPage,
   },
   {

@@ -46,8 +46,8 @@ class TournamentService {
     return axios.get(`${API_URL}/active_tournament_user_data`, { headers: authHeader() });
   }
 
-  getPastTournamentsForAUser() {
-    return axios.get(`${API_URL}/past_tournament_user_data`, { headers: authHeader() });
+  getPastTournamentsForAUser(id) {
+    return axios.get(`${API_URL}/past_tournament_user_data/${id}`);
   }
 
   createTournament(tournament) {
