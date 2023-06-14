@@ -76,7 +76,7 @@
                     <span
                       class="col-8 col-sm-9 col-md-10 col-lg-10 col-xl-11  align-items-center-team-name"
                       :class="teamNameDivider">
-                      <span class="userName" v-on:click="navigateToUserPage(team[0].userId)">{{ team[0].team_name }}</span>
+                      <span class="userName">{{ team[0].team_name }}</span>
                       
                     </span>
                   </div>
