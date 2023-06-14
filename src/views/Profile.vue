@@ -4,7 +4,7 @@
       :customField=teamNameHeader
       :title="`Profile`" />
     <div class="profile-buttons row">
-      <div class="col-4">
+      <div class="col-12 col-lg-4 mb-3">
         <button
         type="button"
         class="btn btn-lg btn-block"
@@ -12,7 +12,7 @@
           Join Tournament
         </button>
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-4 mb-3">
         <button
         type="button"
         class="btn btn-lg btn-block"
@@ -20,7 +20,7 @@
           Active Teams
         </button>
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-4">
         <button
         type="button"
         class="btn btn-lg btn-block"
