@@ -5,7 +5,8 @@
         <tr>
           <th
             v-for="header in headers"
-            :key="header">
+            :key="header"
+            :style="dynamicHeaderWidth">
             {{ header }}
           </th>
         </tr>
@@ -56,6 +57,13 @@ module.exports = {
     onClickFunction: {
       required: false,
     },
+  },
+  data() {
+    return {
+      dynamicHeaderWidth: {
+        width: `${Math.floor(100 / this.headers.length)}%`
+      },
+    }
   },
   methods: {
     createDateString(date) {
