@@ -45,18 +45,18 @@
           </table>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-            <span>Submit</span>
-          </button>
-        </div>
-        <div class="form-group">
           <div
             v-if="submitted && errors.items.length > 1 || message"
             class="alert alert-danger"
             role="alert">
             {{ message || 'Select one Player from each section'}}
           </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" :disabled="loading">
+            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+            <span>Submit</span>
+          </button>
         </div>
       </form>
     </div>
@@ -108,8 +108,8 @@ export default {
         this.submitPlayerDataObject = response.data.selectedPlayers;
       },
       (error) => {
-        this.message = (error.response && error.response.data)
-          || error.message
+        this.message = error.message
+          || (error.response && error.response.data)
           || error.toString();
       },
     );
@@ -126,8 +126,8 @@ export default {
               (res) => {
                 this.$router.push('/active-teams');
               }, (err) => {
-                this.message = (err.response && err.response.data)
-                || err.message
+                this.message = err.message
+                || (err.response && err.response.data)
                 || err.toString();
               },
             );
