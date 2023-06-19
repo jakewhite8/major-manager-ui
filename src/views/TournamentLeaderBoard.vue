@@ -69,7 +69,7 @@
                   <div class="row mobile-row-height align-items-center">
                     <span
                       v-if="tournament.round > 0"
-                      class="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-right
+                      class="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-1 text-center
                          ">
                       {{ scores[team[0].team_name].position }}
                     </span>
