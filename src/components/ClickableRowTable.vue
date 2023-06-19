@@ -35,6 +35,7 @@
                   <font-awesome-icon class="cutSuccess" icon="check" />
                 </span>
               </span>
+              <span v-else-if="column.indexOf('last_name') > -1">{{data['first_name']}} {{data['last_name']}}</span>
               <span v-else>{{ data[column] }}</span>
             </td>
         </tr>
