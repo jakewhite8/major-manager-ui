@@ -5,7 +5,7 @@
     <div class="text-center">
       <button
         type="button"
-        class="btn btn-link btn-sm accordionClass"
+        class="btn btn-link btn-sm accordionClass mb-3"
         aria-expanded="false"
         v-on:click="showAllButton">
           <font-awesome-icon
