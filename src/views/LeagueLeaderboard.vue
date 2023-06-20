@@ -2,6 +2,20 @@
   <div class="container">
     <PageTitle
       :title="`Total First Place Finishes`" />
+    <div class="text-center">
+      <button
+        type="button"
+        class="btn btn-link btn-sm accordionClass"
+        aria-expanded="false"
+        v-on:click="showAllButton">
+          <font-awesome-icon
+            v-if="this.hiddenStatus"
+            icon="eye"/>
+          <font-awesome-icon
+            v-if="!this.hiddenStatus"
+            icon="eye-slash"/>
+      </button>
+    </div>
     <div class="container">
       <div v-if="!errorMessage">
         <div v-for="(team) in this.teamArray"
@@ -27,6 +41,7 @@
             <div
               :id="'collapsing' + team.team_name.split(' ').join('')"
               class="collapse"
+              :class="showAll"
               :aria-labelledby="'heading-'+team.team_name"
               data-parent="#accordion">
               <div class="card-body container">
@@ -61,6 +76,8 @@ export default {
       teamArray: [],
       headers: null,
       columns: null,
+      showAll: false,
+      hiddenStatus: true
     };
   },
   components: {
@@ -87,6 +104,10 @@ export default {
       if (id) {
         this.$router.push(`/tournament/${id}/leaderboard`);
       }
+    },
+    showAllButton(){
+      this.hiddenStatus = !this.hiddenStatus;
+      this.showAll = this.hiddenStatus ? '' : 'show';
     },
   },
 };
