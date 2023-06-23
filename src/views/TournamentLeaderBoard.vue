@@ -32,18 +32,9 @@
           </h5>
         </div>
         <div class="col-4 text-center">
-          <button
-            type="button"
-            class="btn btn-link btn-sm accordionClass"
-            aria-expanded="false"
-            v-on:click="showAllButton">
-              <font-awesome-icon
-                v-if="this.hiddenStatus"
-                icon="eye"/>
-              <font-awesome-icon
-                v-if="!this.hiddenStatus"
-                icon="eye-slash"/>
-          </button>
+          <ShowAllButton
+            :showAllButtonFunction=onClickShowAllToggle
+            :hiddenStatus=hiddenStatus />
         </div>
         <div class="col-4 text-right leaderboardTitleContainer">
           <h5 class="leaderboardTitleHeader alignHeaderRight">
@@ -116,6 +107,7 @@
 <script>
 import ClickableRowTable from '../components/ClickableRowTable.vue';
 import PageTitle from '../components/PageTitle.vue';
+import ShowAllButton from '../components/ShowAllButton.vue';
 import TournamentService from '../services/tournament.service';
 import Tournament from '../models/tournament';
 import User from '../models/user';
@@ -142,6 +134,7 @@ export default {
   components: {
     ClickableRowTable,
     PageTitle,
+    ShowAllButton,
   },
   mounted() {
     this.tournament.id = this.$route.params.id;
@@ -179,7 +172,7 @@ export default {
     );
   },
   methods: {
-    showAllButton() {
+    onClickShowAllToggle() {
       this.hiddenStatus = !this.hiddenStatus;
       this.showAll = this.hiddenStatus ? '' : 'show';
     },

@@ -3,18 +3,9 @@
     <PageTitle
       :title="`Total First Place Finishes`" />
     <div class="text-center">
-      <button
-        type="button"
-        class="btn btn-link btn-sm accordionClass mb-3"
-        aria-expanded="false"
-        v-on:click="showAllButton">
-          <font-awesome-icon
-            v-if="this.hiddenStatus"
-            icon="eye"/>
-          <font-awesome-icon
-            v-if="!this.hiddenStatus"
-            icon="eye-slash"/>
-      </button>
+      <ShowAllButton
+        :showAllButtonFunction=onClickShowAllToggle
+        :hiddenStatus=hiddenStatus />
     </div>
     <div class="container">
       <div v-if="!errorMessage">
@@ -67,6 +58,7 @@
 import TournamentService from '../services/tournament.service';
 import ClickableRowTable from '../components/ClickableRowTable.vue';
 import PageTitle from '../components/PageTitle.vue';
+import ShowAllButton from '../components/ShowAllButton.vue';
 
 export default {
   name: 'LeagueLeaderboard',
@@ -83,6 +75,7 @@ export default {
   components: {
     ClickableRowTable,
     PageTitle,
+    ShowAllButton,
   },
   mounted() {
     // Get Tournament Winners Data
@@ -105,7 +98,7 @@ export default {
         this.$router.push(`/tournament/${id}/leaderboard`);
       }
     },
-    showAllButton(){
+    onClickShowAllToggle(){
       this.hiddenStatus = !this.hiddenStatus;
       this.showAll = this.hiddenStatus ? '' : 'show';
     },
