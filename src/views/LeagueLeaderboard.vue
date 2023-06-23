@@ -40,7 +40,7 @@
                   :rowData=team.tournaments
                   :headers=headers
                   :columns=columns
-                  :onClickFunction=onClickFunction
+                  :onClickFunction=navigateToLeaderboard
                 />
               </div>
             </div>
@@ -93,7 +93,7 @@ export default {
     );
   },
   methods: {
-    onClickFunction(id) {
+    navigateToLeaderboard(id) {
       if (id) {
         this.$router.push(`/tournament/${id}/leaderboard`);
       }
