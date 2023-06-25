@@ -352,16 +352,7 @@ export default {
           || error.toString();
       },
     );
-    TournamentService.getActiveTournaments().then(
-      (response) => {
-        this.activeTournaments = response.data;
-      },
-      (error) => {
-        this.playerDataMessage = (error.response && error.response.data)
-          || error.message
-          || error.toString();
-      },
-    );
+    this.updateActiveTournaments();
     TournamentService.getConcludedTournaments().then(
       (response) => {
         this.arrayOfConcludedTournaments = response.data;
@@ -401,14 +392,17 @@ export default {
           this.message = 'Tournament Created';
           this.successful = true;
           this.submitted = false;
+          // Populate the Add Players tab with the new Tournament
+          this.updateActiveTournaments()
           this.loadingCreateTournament = false;
         }, (error) => {
           this.message = typeof error.message === 'string' ? error.message : 'Error Creating Team';
           this.successful = false;
           this.loadingCreateTournament = false;
         });
+      } else {
+        this.loadingCreateTournament = false;
       }
-      this.loadingCreateTournament = false;
     },
     checkForPlayerDataErrors() {
       // Remove error or success message
@@ -569,6 +563,18 @@ export default {
           this.successfulUpdatePassword = false;
           this.loadingUpdatePassword = false;
         })
+    },
+    updateActiveTournaments() {
+      TournamentService.getActiveTournaments().then(
+        (response) => {
+          this.activeTournaments = response.data;
+        },
+        (error) => {
+          this.playerDataMessage = (error.response && error.response.data)
+            || error.message
+            || error.toString();
+        },
+      );
     },
   },
 };``
