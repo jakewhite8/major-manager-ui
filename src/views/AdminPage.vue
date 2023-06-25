@@ -101,7 +101,7 @@
                   </div>
                   <v-select
                     name="select_tournament"
-                    :options="options"
+                    :options="activeTournaments"
                     label="name"
                     @input="checkForPlayerDataErrors"
                     v-model="selectedTournament"
@@ -125,7 +125,7 @@
                   </div>
                   <v-select
                     name="select_round"
-                    :options="['0',1,2,3,4]"
+                    :options="[0,1,2,3,4]"
                     label="select_round"
                     @input="checkForPlayerDataErrors"
                     v-model="selectedRound"
@@ -320,7 +320,7 @@ export default {
       loadingAddWinningTeam: false,
       loadingUpdatePassword: false,
       playerData: '',
-      options: [],
+      activeTournaments: [],
       arrayOfConcludedTournaments: [],
       arrayOfTeamsInATournament: [],
       selectedTournament: null,
@@ -354,7 +354,7 @@ export default {
     );
     TournamentService.getActiveTournaments().then(
       (response) => {
-        this.options = response.data;
+        this.activeTournaments = response.data;
       },
       (error) => {
         this.playerDataMessage = (error.response && error.response.data)
