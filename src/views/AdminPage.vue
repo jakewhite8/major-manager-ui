@@ -26,6 +26,11 @@
                 href="#reset-password">
               Reset Password
             </a>
+            <a class="list-group-item list-group-item-action"
+                data-toggle="list"
+                href="#add-admin">
+              Add Admin Role
+            </a>
           </div>
         </div>
         <div class="col-md-9">
@@ -282,6 +287,48 @@
                 </div>
               </div>
             </div>
+            <div class="tab-pane fade" id="add-admin">
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="row tournament-select-row">
+                    <div class="col-6">
+                      <label class="form-label" for="select_admin_user">
+                        Select User
+                      </label>
+                    </div>
+                    <div class="col-6 text-right">
+                      <div
+                        v-if="addAdminMessage"
+                        :class="successfulAddAdmin ? 'alert-success' : 'alert-danger'"
+                        class="col-12 alert-admin-page">
+                        {{this.addAdminMessage}}
+                      </div>
+                    </div>
+                  </div>
+                  <v-select
+                    name="select_admin_user"
+                    :options="arrayOfUsers"
+                    label="user"
+                    @input="addAdminSelectOnChange"
+                    v-model="selectedAdminUser"
+                    >
+                  </v-select>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    :disabled="loadingAddAdmin"
+                    v-on:click="addAdmin()"
+                    class="btn btn-primary-dark-blue">
+                    <span>Add Admin</span>
+                    <span v-show="loadingAddAdmin"
+                        class="spinner-border spinner-border-sm">
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -336,6 +383,11 @@ export default {
       playerDataSectionError: false,
       playerDataSuccessful: false,
       submittedPlayerData: false,
+      selectedAdminUser: null,
+      arrayOfUsers: [],
+      loadingAddAdmin: false,
+      successfulAddAdmin: false,
+      addAdminMessage: '',
     };
   },
   components: {
@@ -353,6 +405,7 @@ export default {
       },
     );
     this.updateActiveTournaments();
+    this.getUserData();
     TournamentService.getConcludedTournaments().then(
       (response) => {
         this.arrayOfConcludedTournaments = response.data;
@@ -575,6 +628,17 @@ export default {
             || error.toString();
         },
       );
+    },
+    getUserData() {
+      // Get User Data
+    },
+    addAdminSelectOnChange() {
+      // Remove error and success messages
+      this.addAdminMessage = '';
+      this.successfulAddAdmin = false;
+    },
+    addAdmin() {
+
     },
   },
 };``
