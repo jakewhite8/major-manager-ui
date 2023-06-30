@@ -18,6 +18,10 @@ class UserService {
     return axios.get(`${server.URL}api/v1/user_info/${id}`);
   }
 
+  getNonAdminUsers(){
+    return axios.get(`${server.URL}api/v1/non_admin_users`, { headers: authHeader() });
+  }
+
   getModeratorPage() {
     return axios.get(`${API_URL}mod`, { headers: authHeader() });
   }

@@ -631,6 +631,16 @@ export default {
     },
     getUserData() {
       // Get User Data
+      UserService.getNonAdminUsers().then(
+        (response) => {
+          this.arrayOfUsers = response.data.map((user) => {
+            return user.team_name
+          });
+        },
+        (error) => {
+          this.addAdminMessage = (error && error.message) || error
+        },
+      );
     },
     addAdminSelectOnChange() {
       // Remove error and success messages
