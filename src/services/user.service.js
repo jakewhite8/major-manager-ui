@@ -22,6 +22,10 @@ class UserService {
     return axios.get(`${server.URL}api/v1/non_admin_users`, { headers: authHeader() });
   }
 
+  addAdmin(user){
+    return axios.post(`${server.URL}api/v1/add_admin`, user, { headers: authHeader() });
+  }
+
   getModeratorPage() {
     return axios.get(`${API_URL}mod`, { headers: authHeader() });
   }

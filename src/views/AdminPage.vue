@@ -309,7 +309,7 @@
                   <v-select
                     name="select_admin_user"
                     :options="arrayOfUsers"
-                    label="user"
+                    label="team_name"
                     @input="addAdminSelectOnChange"
                     v-model="selectedAdminUser"
                     >
@@ -317,6 +317,7 @@
                 </div>
                 <div>
                   <button
+                    v-if="selectedAdminUser"
                     type="button"
                     :disabled="loadingAddAdmin"
                     v-on:click="addAdmin()"
@@ -634,7 +635,7 @@ export default {
       UserService.getNonAdminUsers().then(
         (response) => {
           this.arrayOfUsers = response.data.map((user) => {
-            return user.team_name
+            return user
           });
         },
         (error) => {
@@ -648,7 +649,20 @@ export default {
       this.successfulAddAdmin = false;
     },
     addAdmin() {
+      this.loadingAddAdmin = true;
 
+      UserService.addAdmin(this.selectedAdminUser).then(
+        (response) => {
+          this.addAdminMessage = 'Admin added successfully';
+          this.successfulAddAdmin = true;
+          this.loadingAddAdmin = false;
+        },
+        (error) => {
+          this.addAdminMessage = (error && error.message) || error || 'Failed to add Admin';
+          this.successfulAddAdmin = false;
+          this.loadingAddAdmin = false;
+        },
+      )
     },
   },
 };``
