@@ -8,7 +8,7 @@
         v-if="this.hiddenStatus"
         icon="eye"/>
       <font-awesome-icon
-        v-if="!this.hiddenStatus"
+        v-else
         icon="eye-slash"/>
   </button>
 </template>
