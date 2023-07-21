@@ -17,6 +17,7 @@ import UserPastTeams from '../views/UserPastTeams.vue';
 import Settings from '../views/Settings.vue';
 import ForgotPassword from '../views/ForgotPassword.vue';
 import PageNotFound from '../views/PageNotFound.vue';
+import Rules from '../views/Rules.vue';
 
 Vue.use(VueRouter);
 
@@ -89,6 +90,10 @@ const routes = [
   {
     path: '/forgot-password',
     component: ForgotPassword,
+  },
+  {
+    path: '/rules',
+    component: Rules,
   },
   {
     path: '*',
