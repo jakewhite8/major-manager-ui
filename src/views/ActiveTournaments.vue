@@ -3,7 +3,7 @@
     <PageTitle
       :title="`Active Tournaments`" />
     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-    <div v-if="loading || tournaments && tournaments.length">
+    <div v-if="tournaments && tournaments.length">
       <ClickableRowTable
         :rowData=tournaments
         :headers=headers
