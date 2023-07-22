@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <PageTitle
-      :title="`First Place Finishes`" />
+      :title="`Championship Leaderboard`" />
     <div class="text-center">
       <ShowAllButton
         :showAllButtonFunction=onClickShowAllToggle
         :hiddenStatus=hiddenStatus />
     </div>
-    <div class="container container-padding">
+    <div class="container container-margin">
       <div v-if="!teamErrorMessage">
         <div v-for="(team) in this.teamArray"
           id="accordion"
@@ -53,7 +53,7 @@
     </div>
     <PageTitle
       :title="`League Tournament History`" />
-    <div class="row container-padding">
+    <div class="row container-margin">
       <PastTournamentsTable
         :tournaments=pastTournaments
         :loading=pastTournamentsLoading
@@ -139,7 +139,7 @@ export default {
 };
 </script>
 <style scoped>
-  .container-padding {
+  .container-margin {
     margin-bottom: 47px;
   }
 </style>
