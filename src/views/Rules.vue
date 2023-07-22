@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <PageTitle
-      :title="`Rules`" />
+      :title="`Pool Format`" />
     <header class="jumbotron">
       <ul>
         <li>

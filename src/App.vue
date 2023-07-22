@@ -28,7 +28,7 @@
         </li>
         <li class="nav-item">
           <router-link v-if="currentUser" to="/rules" class="nav-link">
-            Rules
+            Format
           </router-link>
         </li>
       </div>
