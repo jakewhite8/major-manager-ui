@@ -7,7 +7,7 @@
         :showAllButtonFunction=onClickShowAllToggle
         :hiddenStatus=hiddenStatus />
     </div>
-    <div class="container" style="margin-bottom: 47px;">
+    <div class="container container-padding">
       <div v-if="!teamErrorMessage">
         <div v-for="(team) in this.teamArray"
           id="accordion"
@@ -53,7 +53,7 @@
     </div>
     <PageTitle
       :title="`League Tournament History`" />
-    <div class="row" style="margin-bottom: 47px;">
+    <div class="row container-padding">
       <PastTournamentsTable
         :tournaments=pastTournaments
         :loading=pastTournamentsLoading
@@ -138,3 +138,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .container-padding {
+    margin-bottom: 47px;
+  }
+</style>
