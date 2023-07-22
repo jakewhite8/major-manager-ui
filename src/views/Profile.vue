@@ -29,42 +29,16 @@
         </button>
       </div>
     </div>
-    <div class="text-center">
-      <h4 class="mb-3">
-        League History        
-      </h4>
-    </div>
-    <div class="row">
-      <PastTournamentsTable
-        :tournaments=tournaments
-        :loading=loading
-        :headers=headers
-        :columns=columns
-        :message=message />
-    </div>
   </div>
 </template>
 
 <script>
 import PageTitle from '../components/PageTitle.vue';
-import PastTournamentsTable from '../components/PastTournamentsTable.vue';
-import TournamentService from '../services/tournament.service';
 
 export default {
   name: 'Profile',
-  data() {
-    return {
-      loading: false,
-      tournaments: [],
-      headers: [],
-      columns: [],
-      message: '',
-    }
-
-  },
   components: {
     PageTitle,
-    PastTournamentsTable
   },
   computed: {
     currentUser() {
@@ -83,21 +57,6 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    this.loading = true;
-    TournamentService.getConcludedTournaments().then(
-      (response) => {
-        this.tournaments = response.data;
-        this.headers = ['Tournaments', 'Start Date'];
-        this.columns = ['name', 'start_date'];
-        this.loading = false;
-      },
-      (error) => {
-        this.message = (error.response && error.response.data)
-          || error.message
-          || error.toString();
-        this.loading = false;
-      },
-    );
   },
 };
 </script>

@@ -22,8 +22,8 @@
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
         </li> -->
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/league-leaderboard" class="nav-link">
-            League Leaderboard
+          <router-link v-if="currentUser" to="/league-history" class="nav-link">
+            League History
           </router-link>
         </li>
         <li class="nav-item">

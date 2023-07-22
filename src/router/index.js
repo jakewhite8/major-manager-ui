@@ -7,7 +7,7 @@ import Profile from '../views/Profile.vue';
 import AdminPage from '../views/AdminPage.vue';
 import ModeratorPage from '../views/ModeratorPage.vue';
 import UserPage from '../views/UserPage.vue';
-import LeagueLeaderboard from '../views/LeagueLeaderboard.vue';
+import LeagueHistory from '../views/LeagueHistory.vue';
 import Logout from '../views/Logout.vue';
 import ActiveTournaments from '../views/ActiveTournaments.vue';
 import PlayerSelectionPage from '../views/PlayerSelectionPage.vue';
@@ -52,8 +52,8 @@ const routes = [
     component: ModeratorPage,
   },
   {
-    path: '/league-leaderboard',
-    component: LeagueLeaderboard,
+    path: '/league-history',
+    component: LeagueHistory,
   },
   {
     path: '/user/:id',
