@@ -36,6 +36,12 @@
                 </span>
               </span>
               <span v-else-if="column.indexOf('last_name') > -1">{{data['first_name']}} {{data['last_name']}}</span>
+              <span v-else-if="Array.isArray(data[column])">
+                <span v-for="(team, index) in data[column]">
+                  <span v-if="index < data[column].length - 1">{{team}}, </span>
+                  <span v-else>{{team}}</span>
+                </span>
+              </span>
               <span v-else>{{ data[column] }}</span>
             </td>
         </tr>
