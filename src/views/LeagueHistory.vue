@@ -99,29 +99,48 @@ export default {
     TournamentService.getLeagueLeaderboard().then(
       (response) => {
         this.teamErrorMessage = '';
+        // Array of users with: team_name, array of tournaments won and userId
         this.teamArray = response.data.teamArray;
         this.teamLeaderboardHeaders = ['Tournament'];
         this.teamLeaderboardColumns = ['name'];
+
+        this.pastTournamentloading = true;
+        TournamentService.getConcludedTournaments().then(
+          (response) => {
+            this.pastTournamentsMessage = '';
+            // Array of each tournament with: name, id, start_date and round
+            this.pastTournaments = response.data;
+            this.pastTournamentsHeaders = ['Tournaments', 'Start Date', 'Winning Team'];
+            this.pastTournamentsColumns = ['name', 'start_date', 'winning_team'];
+            this.pastTournamentsLoading = false;
+            // Iterate through Users object and add the Tournaments they have won to the tournament winner object 
+            let tournamentWinnersObject = {}
+            for (let i = 0; i < this.teamArray.length; i++) {
+              let selectedTeam = this.teamArray[i];
+              for (let t = 0; t < selectedTeam.tournaments.length; t++) {
+                let selectedTournament = selectedTeam.tournaments[t]
+                if (!tournamentWinnersObject[selectedTournament.name]) {
+                  tournamentWinnersObject[selectedTournament.name] = []
+                }
+                tournamentWinnersObject[selectedTournament.name].push(selectedTeam.team_name)
+              }
+            }
+            // Use the tournament winner object to add the winning Teams to each Tournament
+            for (let x = 0; x < this.pastTournaments.length; x++) {
+              this.pastTournaments[x]['winning_team'] = tournamentWinnersObject[this.pastTournaments[x].name]
+            }
+          },
+          (error) => {
+            this.pastTournamentsMessage = (error.response && error.response.data)
+              || error.message
+              || error.toString();
+            this.pastTournamentsLoading = false;
+          },
+        );
       }, (error) => {
         this.teamErrorMessage = (error.response && error.response.data)
           || error.message
           || error.toString();
-      },
-    );
-    this.pastTournamentloading = true;
-    TournamentService.getConcludedTournaments().then(
-      (response) => {
-        this.pastTournamentsMessage = '';
-        this.pastTournaments = response.data;
-        this.pastTournamentsHeaders = ['Tournaments', 'Start Date'];
-        this.pastTournamentsColumns = ['name', 'start_date'];
-        this.pastTournamentsLoading = false;
-      },
-      (error) => {
-        this.pastTournamentsMessage = (error.response && error.response.data)
-          || error.message
-          || error.toString();
-        this.pastTournamentsLoading = false;
       },
     );
   },
