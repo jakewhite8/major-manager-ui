@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <PageTitle
-      :title="`Championship Leaderboard`" />
+      :title="`Champions Leaderboard`" />
     <div class="text-center">
       <ShowAllButton
         :showAllButtonFunction=onClickShowAllToggle
         :hiddenStatus=hiddenStatus />
     </div>
     <div class="container container-margin">
-      <div v-if="!teamErrorMessage">
-        <div v-for="(team) in this.teamArray"
+      <div v-if="!userErrorMessage">
+        <div v-for="(team) in this.userArray"
           id="accordion"
           :key="team.team_name">
           <div class="card">
@@ -38,8 +38,8 @@
               <div class="card-body container">
                 <ClickableRowTable
                   :rowData=team.tournaments
-                  :headers=teamLeaderboardHeaders
-                  :columns=teamLeaderboardColumns
+                  :headers=userLeaderboardHeaders
+                  :columns=userLeaderboardColumns
                   :onClickFunction=navigateToLeaderboard
                 />
               </div>
@@ -47,12 +47,12 @@
           </div>
         </div>
       </div>
-      <div v-else class="alert-danger">
-        {{ teamErrorMessage }}
+      <div v-else class="alert alert-danger">
+        {{ userErrorMessage }}
       </div>
     </div>
     <PageTitle
-      :title="`League Tournament History`" />
+      :title="`Tournament History`" />
     <div class="row container-margin">
       <PastTournamentsTable
         :tournaments=pastTournaments
@@ -75,10 +75,10 @@ export default {
   name: 'LeagueHistory',
   data() {
     return {
-      teamErrorMessage: '',
-      teamArray: [],
-      teamLeaderboardHeaders: null,
-      teamLeaderboardColumns: null,
+      userErrorMessage: '',
+      userArray: [],
+      userLeaderboardHeaders: null,
+      userLeaderboardColumns: null,
       showAll: false,
       hiddenStatus: true,
       pastTournamentsLoading: false,
@@ -95,54 +95,63 @@ export default {
     PastTournamentsTable,
   },
   mounted() {
-    // Get Tournament Winners Data
-    TournamentService.getLeagueLeaderboard().then(
-      (response) => {
-        this.teamErrorMessage = '';
-        // Array of users with: team_name, array of tournaments won and userId
-        this.teamArray = response.data.teamArray;
-        this.teamLeaderboardHeaders = ['Tournament'];
-        this.teamLeaderboardColumns = ['name'];
+    this.pastTournamentsLoading = true;
+    // Get Tournament winners (User) data
+    const getLeagueLeaderboard = TournamentService.getLeagueLeaderboard().catch((error) => {
+      this.userErrorMessage = error.message;
+    });
+    // Get past Tournaments
+    const getConcludedTournaments = TournamentService.getConcludedTournaments().catch((error) => {
+      this.pastTournamentsMessage = error.message;
+      this.pastTournamentsLoading = false;
+    });
 
-        this.pastTournamentloading = true;
-        TournamentService.getConcludedTournaments().then(
-          (response) => {
-            this.pastTournamentsMessage = '';
-            // Array of each tournament with: name, id, start_date and round
-            this.pastTournaments = response.data;
-            this.pastTournamentsHeaders = ['Tournaments', 'Start Date', 'Winning Team'];
-            this.pastTournamentsColumns = ['name', 'start_date', 'winning_team'];
-            this.pastTournamentsLoading = false;
-            // Iterate through Users object and add the Tournaments they have won to the tournament winner object 
-            let tournamentWinnersObject = {}
-            for (let i = 0; i < this.teamArray.length; i++) {
-              let selectedTeam = this.teamArray[i];
-              for (let t = 0; t < selectedTeam.tournaments.length; t++) {
-                let selectedTournament = selectedTeam.tournaments[t]
-                if (!tournamentWinnersObject[selectedTournament.name]) {
-                  tournamentWinnersObject[selectedTournament.name] = []
-                }
-                tournamentWinnersObject[selectedTournament.name].push(selectedTeam.team_name)
-              }
+    Promise.allSettled([getLeagueLeaderboard, getConcludedTournaments]).then((response)=> {
+      const getLeagueLeaderboardSuccess = response[0].value && response[0].value.data;
+      const getConcludedTournamentsSuccess = response[1].value && response[1].value.data;
+      if (getLeagueLeaderboardSuccess) {
+        // userArray - Array of users with: team_name, array of tournaments won and userId
+        this.userArray = response[0].value.data.teamArray;
+        this.userLeaderboardHeaders = ['Tournament'];
+        this.userLeaderboardColumns = ['name'];
+        this.userErrorMessage = '';
+      }
+      if (getConcludedTournamentsSuccess) {
+        // pastTournaments - Array of each tournament with: name, id, start_date and round
+        this.pastTournaments = response[1].value.data;
+        this.pastTournamentsHeaders = ['Tournaments', 'Start Date'];
+        this.pastTournamentsColumns = ['name', 'start_date'];
+        this.pastTournamentsMessage = '';
+      }
+      // If the User and the Tournament data resolved succesfully, connect the winning Users with
+      // the Tournaments they won (for the Tournament History table)
+      if (getLeagueLeaderboardSuccess && getConcludedTournamentsSuccess) {
+        // Add column to Tournament History table
+        this.pastTournamentsHeaders.push('Winning Team');
+        this.pastTournamentsColumns.push('winning_team');
+        // Iterate through Users object and add the Tournaments they have
+        // won to the tournamentWinnersObject
+        let tournamentWinnersObject = {}
+        for (let i = 0; i < this.userArray.length; i++) {
+          let selectedTeam = this.userArray[i];
+          for (let t = 0; t < selectedTeam.tournaments.length; t++) {
+            let selectedTournament = selectedTeam.tournaments[t]
+            if (!tournamentWinnersObject[selectedTournament.name]) {
+              tournamentWinnersObject[selectedTournament.name] = []
             }
-            // Use the tournament winner object to add the winning Teams to each Tournament
-            for (let x = 0; x < this.pastTournaments.length; x++) {
-              this.pastTournaments[x]['winning_team'] = tournamentWinnersObject[this.pastTournaments[x].name]
-            }
-          },
-          (error) => {
-            this.pastTournamentsMessage = (error.response && error.response.data)
-              || error.message
-              || error.toString();
-            this.pastTournamentsLoading = false;
-          },
-        );
-      }, (error) => {
-        this.teamErrorMessage = (error.response && error.response.data)
-          || error.message
-          || error.toString();
-      },
-    );
+            tournamentWinnersObject[selectedTournament.name].push(selectedTeam.team_name)
+          }
+        }
+        // Use the tournamentWinnersObject to add the winning Users to each Tournament
+        for (let x = 0; x < this.pastTournaments.length; x++) {
+          this.pastTournaments[x]['winning_team'] = tournamentWinnersObject[this.pastTournaments[x].name]
+        }
+      }
+      this.pastTournamentsLoading = false;
+    }).catch((error) => {
+      console.error(error)
+    })
+
   },
   methods: {
     navigateToLeaderboard(id) {
