@@ -4,7 +4,7 @@
       :customField=teamNameHeader
       :title="`Profile`" />
     <div class="profile-buttons row">
-      <div class="col-12 col-lg-6 mb-3">
+      <div class="col-12 mb-3">
         <button
         type="button"
         class="btn btn-lg btn-block"
@@ -12,20 +12,26 @@
           Join Tournament
         </button>
       </div>
-      <div class="col-12 col-lg-6 mb-3">
-        <button
-        type="button"
-        class="btn btn-lg btn-block"
-        v-on:click="routeTo('active-teams')">
-          Active Teams
-        </button>
+    </div>
+    <div v-if="activeTournaments.length > 0" class="row container-margin">
+      <div class="col-12">
+        <PageTitle
+          :title="`Active Tournaments`" />
+      </div>
+      <div class="col-12">
+        <PastTournamentsTable
+            :tournaments=activeTournaments
+            :loading=loading
+            :headers=headers
+            :columns=columns
+            :message=message />
       </div>
     </div>
     <div v-if="tournaments.length > 0" class="row container-margin">
       <div class="col-12">
         <PageTitle
           :customField=teamNameHeader
-          :title="`Current and Past Tournaments`" />
+          :title="`Past Tournaments`" />
       </div>
       <div class="col-12">
         <PastTournamentsTable
@@ -56,6 +62,7 @@ export default {
       headers: [],
       columns: [],
       message: '',
+      activeTournaments: [],
     };
   },
   components: {
@@ -86,6 +93,15 @@ export default {
         this.columns = ['name', 'start_date'];
         this.message = '';
         this.loading = false;
+        if (this.tournaments.length > 0) {
+          const currentDate = new Date()
+          const fiveDaysAgo = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000);
+          function activeTournament(startDate, fiveDaysAgo) {
+            const tournamentStartDate = new Date(startDate)
+            return tournamentStartDate.getTime() - fiveDaysAgo.getTime() > 0;
+          }
+          this.activeTournaments = this.tournaments.filter((tournament) => activeTournament(tournament.start_date, fiveDaysAgo))  
+        }
       },
       (error) => {
         this.message = (error.response && error.response.data)
