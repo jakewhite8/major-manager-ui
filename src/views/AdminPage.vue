@@ -474,7 +474,7 @@ export default {
         } else {
           this.playerDataSectionError = false;
         }
-        if (!this.selectedRound) {
+        if (this.selectedRound === null) {
           this.roundSectionError = true;
         } else {
           this.roundSectionError = false;
@@ -485,7 +485,7 @@ export default {
       this.submittedPlayerData = true;
       this.checkForPlayerDataErrors();
       this.loadingPlayerData = true;
-      if (this.playerData && this.selectedTournament && this.selectedRound) {
+      if (this.playerData && this.selectedTournament && this.selectedRound !== null) {
         // create playerData JSON object needed by the server to update a Player's Data
         // {
         //   "playerData": [{
