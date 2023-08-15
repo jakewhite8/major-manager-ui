@@ -5,7 +5,7 @@
     <header class="jumbotron">
       <ul>
         <li>
-          <h4>Choose one player from each tier</h4>
+          <h4>Choose one Player from each tier</h4>
         </li>
         <li>
           <h4>A Team's final score is the aggregate of their four lowest scores</h4>
